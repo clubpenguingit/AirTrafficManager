@@ -10,6 +10,7 @@ namespace AirTrafficManager
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Er opgaven færdig nu?");
         }
     }
 }
