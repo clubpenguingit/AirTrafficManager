@@ -13,8 +13,8 @@ namespace AirTrafficManager
         }
         public void RenderAirCraft(Track track, bool clear = true)
         {
-            if(clear)
-                Console.Clear(); // Skal fx ikke clear ved SeparationCondition
+            //if(clear)
+            //    Console.Clear(); // Skal fx ikke clear ved SeparationCondition
 
             _writer.Write($"Tag: {track.Tag}\n" +
                               $"Coordinates: ({track.XCoordinate} , {track.YCoordinate})\n" +

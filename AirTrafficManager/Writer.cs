@@ -8,5 +8,10 @@ namespace AirTrafficManager
         {
             Console.WriteLine(s);
         }
+
+        public void ClearConsole()
+        {
+            Console.Clear();
+        }
     }
 }

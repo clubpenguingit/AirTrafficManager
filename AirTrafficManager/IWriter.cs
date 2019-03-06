@@ -3,5 +3,6 @@
     public interface IWriter
     {
         void Write(string s);
+        void ClearConsole();
     }
 }
