@@ -11,7 +11,7 @@ namespace AirTrafficManager
 
         public void ClearConsole()
         {
-            Console.Clear();
+            System.Console.Clear();
         }
     }
 }
