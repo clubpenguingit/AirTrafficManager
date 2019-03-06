@@ -46,7 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileLogger.cs" />
+    <Compile Include="IInputOutput.cs" />
     <Compile Include="IRenderer.cs" />
+    <Compile Include="ISeparationCondition.cs" />
     <Compile Include="Log\Logger.cs" />
     <Compile Include="Log\NormalLogger.cs" />
     <Compile Include="Program.cs" />
