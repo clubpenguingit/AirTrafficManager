@@ -18,7 +18,7 @@ namespace AirTrafficManager
     }
     #endregion
 
-    interface ISeparationCondition
+    public interface ISeparationCondition
     {
         event EventHandler<SepCondEventArgs> WarningEvent;
     }
