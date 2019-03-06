@@ -50,8 +50,8 @@
     <Compile Include="IInputOutput.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="ISeparationCondition.cs" />
-    <Compile Include="Log\Logger.cs" />
-    <Compile Include="Log\NormalLogger.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="NormalLogger.cs" />
     <Compile Include="MonitoredAirspace.cs" />
     <Compile Include="IWriter.cs" />
     <Compile Include="Program.cs" />
@@ -63,6 +63,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Log\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
