@@ -5,6 +5,16 @@ namespace AirTrafficManager
 {
     public class MonitoredAirspace
     {
+        public MonitoredAirspace(int upperX, int lowerX, int upperY, int lowerY, int upperAltitude, int lowerAltitude)
+        {
+            UpperBoundX = upperX;
+            LowerBoundX = lowerX;
+            UpperBoundY = upperY;
+            LowerBoundY = lowerY;
+            UpperAltitudeBound = upperAltitude;
+            LowerAltitudeBound = lowerAltitude;
+        }
+
         private int _upperBoundX;
         private int _lowerBoundX;
         private int _upperBoundY;
@@ -17,7 +27,7 @@ namespace AirTrafficManager
             get { return _upperBoundX; }
             set
             {
-                if (value > 95000 || value < 5000)
+                if ((value > 95000) || (value < 5000))
                 {
                     throw new ArgumentOutOfRangeException($"{nameof(value)} is out of bounds, range is 5000 to 95000 meters");
                 }
@@ -31,7 +41,7 @@ namespace AirTrafficManager
             get { return _lowerBoundX;}
             set
             {
-                if (value > 95000 || value < 5000)
+                if ((value > 95000) || (value < 5000))
                 {
                     throw new ArgumentOutOfRangeException($"{nameof(value)} is out of bounds, range is 5000 to 95000 meters");
                 }
@@ -100,17 +110,17 @@ namespace AirTrafficManager
         {
            
 
-            if ((needsValidation.XCoordinate > _upperBoundX) && (needsValidation.XCoordinate < _lowerBoundX))
+            if ((needsValidation.XCoordinate > _upperBoundX) || (needsValidation.XCoordinate < _lowerBoundX))
             {
                 return false;
             }
 
-            else if ((needsValidation.YCoordinate > _upperBoundY) && (needsValidation.YCoordinate < _lowerBoundY))
+            else if ((needsValidation.YCoordinate > _upperBoundY) || (needsValidation.YCoordinate < _lowerBoundY))
             {
                 return false;
             }
 
-            else if ((needsValidation.Altitude > _upperAltitudeBound) && (needsValidation.Altitude < _lowerAltitudeBound))
+            else if ((needsValidation.Altitude > _upperAltitudeBound) || (needsValidation.Altitude < _lowerAltitudeBound))
             {
                 return false;
             }
