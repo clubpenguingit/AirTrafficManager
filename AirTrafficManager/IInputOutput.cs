@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AirTrafficManager
 {
-    interface IInputOutput
+    public interface IInputOutput
     {
         void Write(SepCondEventArgs e, string fileName);
 
