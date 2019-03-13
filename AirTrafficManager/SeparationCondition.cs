@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AirTrafficManager
 {
-    class SeparationCondition : ISeparationCondition
+    public class SeparationCondition : ISeparationCondition
     {
         public event EventHandler<SepCondEventArgs> WarningEvent;
 
@@ -18,10 +18,6 @@ namespace AirTrafficManager
         }
 
 
-        // NOT DONE YET *********************
-        // **********************************
-        // **********************************
-        // **********************************
         private void DataReceived(object sender, ATMSEventArgs e)
         {
             //For each track 
