@@ -74,7 +74,6 @@
     <Compile Include="ITrackCalculator.cs" />
     <Compile Include="ITransponderReceiverClient.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Testfolder\TestClass.cs" />
     <Compile Include="NormalLogger.cs" />
     <Compile Include="MonitoredAirspace.cs" />
     <Compile Include="IWriter.cs" />
@@ -91,9 +90,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Log\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
