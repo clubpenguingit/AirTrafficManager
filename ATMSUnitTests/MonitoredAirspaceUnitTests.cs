@@ -23,7 +23,7 @@ namespace ATMSUnitTests
         {
             date = DateTime.Now;
             _uutAirspace = new MonitoredAirspace(95000,5000,95000,5000,20000,500);
-            _testTrackTrue = new Track("True",80000,80000,10000,date,300,0);
+            _testTrackTrue = new Track("111111",80000,80000,10000,date,300,0);
             
         }
 
@@ -102,7 +102,7 @@ namespace ATMSUnitTests
         [TestCase(80000,80000,25000)]
         public void ValidateAirspace_False(int x, int y, int alt)
         {
-            _testTrackFalse = new Track("False",x,y,alt,date,300,0);
+            _testTrackFalse = new Track("000000",x,y,alt,date,300,0);
             Assert.That(_uutAirspace.ValidateAirspace(_testTrackFalse),Is.False);
         }        
     }

@@ -67,33 +67,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirTrafficManagementSystem.cs" />
-    <Compile Include="FileLogger.cs" />
-    <Compile Include="IAirTrafficManagementSystem.cs" />
-    <Compile Include="IInputOutput.cs" />
-    <Compile Include="IRenderer.cs" />
-    <Compile Include="ISeparationCondition.cs" />
-    <Compile Include="ITrackCalculator.cs" />
-    <Compile Include="ITransponderReceiverClient.cs" />
-    <Compile Include="Logger.cs" />
-    <Compile Include="NormalLogger.cs" />
+    <Compile Include="LoggingClasses\FileLogger.cs" />
+    <Compile Include="LoggingClasses\IInputOutput.cs" />
+    <Compile Include="Renderer\IRenderer.cs" />
+    <Compile Include="SeparationCondition\ISeparationCondition.cs" />
+    <Compile Include="TrackCalculator\ITrackCalculator.cs" />
+    <Compile Include="TransponderReceiverClient\ITransponderReceiverClient.cs" />
+    <Compile Include="LoggingClasses\Logger.cs" />
+    <Compile Include="LoggingClasses\NormalLogger.cs" />
     <Compile Include="MonitoredAirspace.cs" />
-    <Compile Include="IWriter.cs" />
+    <Compile Include="Writer\IWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderer.cs" />
-    <Compile Include="SeparationCondition.cs" />
+    <Compile Include="Renderer\Renderer.cs" />
+    <Compile Include="SeparationCondition\SeparationCondition.cs" />
     <Compile Include="Track.cs" />
-    <Compile Include="TrackCalculator.cs" />
-    <Compile Include="TransponderReceiverClient.cs" />
-    <Compile Include="Writer.cs" />
+    <Compile Include="TrackCalculator\TrackCalculator.cs" />
+    <Compile Include="TransponderReceiverClient\TransponderReceiverClient.cs" />
+    <Compile Include="Writer\Writer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Log\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

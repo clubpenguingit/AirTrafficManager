@@ -71,6 +71,7 @@
     <Compile Include="SeperationConditionTests.cs" />
     <Compile Include="TrackCalculatorUnitTests.cs" />
     <Compile Include="TransponderReceiverClientUnitTests.cs" />
+    <Compile Include="TrackUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
