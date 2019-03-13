@@ -18,12 +18,13 @@ namespace ATMSUnitTests
         private Track _testTrackTrue;
         private Track _testTrackFalse;
 
+
         [SetUp]
         public void Setup()
         {
             _uutAirspace = new MonitoredAirspace(95000,5000,95000,5000,20000,500);
             _testTrackTrue = new Track("True",80000,80000,10000,300,0);
-            _testTrackFalse = new Track("False",100000,-1,25000,300,0);
+            
         }
 
         [TestCase(95000, 5000, 95000, 5000)]
@@ -75,15 +76,33 @@ namespace ATMSUnitTests
             }, Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
+
+        [TestCase(20000, 0)]
+        [TestCase(0, 500)]
+        [TestCase(-1, -10)]
+        public void SetMethodAltitude_OutRange(int upper, int lower)
+        {
+            Assert.That(() =>
+            {
+                _uutAirspace.UpperAltitudeBound = upper;
+                _uutAirspace.LowerAltitudeBound = lower;
+            }, Throws.TypeOf<ArgumentOutOfRangeException>());
+
+        }
+
+
         [Test]
         public void ValidateAirspace_True()
         {
             Assert.That(_uutAirspace.ValidateAirspace(_testTrackTrue), Is.True);
         }
 
-        [Test]
-        public void ValidateAirspace_False()
+        [TestCase(100000,-1,10000)]
+        [TestCase(80000,95500,10000)]
+        [TestCase(80000,80000,25000)]
+        public void ValidateAirspace_False(int x, int y, int alt)
         {
+            _testTrackFalse = new Track("False",x,y,alt,300,0);
             Assert.That(_uutAirspace.ValidateAirspace(_testTrackFalse),Is.False);
         }        
     }
