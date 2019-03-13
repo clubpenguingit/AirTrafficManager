@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AirTrafficManager.Log
 {
-    abstract class Logger
+    public abstract class Logger
     {
         protected ISeparationCondition SepCond;
         protected string FileName;

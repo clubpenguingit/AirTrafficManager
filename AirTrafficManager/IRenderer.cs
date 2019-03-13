@@ -2,7 +2,7 @@
 
 namespace AirTrafficManager
 {
-    interface IRenderer
+    public interface IRenderer
     {
         void RenderAirCraft(Track track, bool clear = true);
 
