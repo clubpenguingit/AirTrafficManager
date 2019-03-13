@@ -11,10 +11,10 @@ namespace AirTrafficManager
         //Event AirTrafficManagementSystem will subscribe to
         public event EventHandler<DataEventArgs> DataReceivedEvent;
         private ITransponderReceiver receiver;
-        private TrackCalculator calculator;
+        private ITrackCalculator calculator;
 
         // Using constructor injection for dependency/ies
-        public TransponderReceiverClient(ITransponderReceiver receiver, TrackCalculator calculator)
+        public TransponderReceiverClient(ITransponderReceiver receiver, ITrackCalculator calculator)
         {
             // This will store the real or the fake transponder data receiver
             this.receiver = receiver;
@@ -25,7 +25,7 @@ namespace AirTrafficManager
             this.receiver.TransponderDataReady += ReceiverOnTransponderDataReady;
         }
 
-
+        // Event: Receiving Transponder data. Creates a list of tracks from it
         private void ReceiverOnTransponderDataReady(object sender, RawTransponderDataEventArgs e)
         {
             var tracks = new List<Track>();

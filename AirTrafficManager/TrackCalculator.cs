@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AirTrafficManager
 {
-    public class TrackCalculator
+    public class TrackCalculator : ITrackCalculator
     {
-        public virtual double CalculateVelocity(int x1, int x2, int y1, int y2, int z1, int z2, double time1, double time2)
+        public double CalculateVelocity(int x1, int x2, int y1, int y2, int z1, int z2, double time1, double time2)
         {
             var value = ((Math.Pow((x2 - x1),2)) + (Math.Pow((y2 - y1), 2)) + (Math.Pow((z2 - z1), 2)));
             
@@ -21,7 +21,7 @@ namespace AirTrafficManager
             return velocity;
         }
 
-        public virtual double CalculateCourse(int x1, int x2, int y1, int y2)
+        public double CalculateCourse(int x1, int x2, int y1, int y2)
         {
             var m = (y2 - y1) / (x2 - x1);
 

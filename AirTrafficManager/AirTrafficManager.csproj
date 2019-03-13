@@ -71,6 +71,7 @@
     <Compile Include="IInputOutput.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="ISeparationCondition.cs" />
+    <Compile Include="ITrackCalculator.cs" />
     <Compile Include="ITransponderReceiverClient.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="NormalLogger.cs" />
