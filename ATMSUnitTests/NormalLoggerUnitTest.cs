@@ -18,19 +18,21 @@ namespace ATMSUnitTests
         private NormalLogger _uut;
         private SepCondEventArgs _receivedEventArgs;
         private SepCondEventArgs _argsToSend;
+        private DateTime date;
 
 
         [SetUp]
         public void Setup()
         {
+            date = DateTime.Now;
             _receivedEventArgs = null;
             _fakeInputOutput = Substitute.For<IInputOutput>();
             _fakeSeparationCondition = Substitute.For<ISeparationCondition>();
 
 
             _argsToSend = new SepCondEventArgs();
-            _argsToSend.Track1 = new Track("123456", 1000, 2000, 5000, 250, 32);
-            _argsToSend.Track2 = new Track("654321", 2000, 1000, 5500, 150, 161);
+            _argsToSend.Track1 = new Track("123456", 1000, 2000, 5000,date, 250, 32);
+            _argsToSend.Track2 = new Track("654321", 2000, 1000, 5500,date, 150, 161);
             _argsToSend.TimeOfOccurrence = new DateTime(2019, 3, 25, 23, 59, 00);
 
             _uut = new NormalLogger("UnitTestFile.txt", _fakeSeparationCondition, _fakeInputOutput);
