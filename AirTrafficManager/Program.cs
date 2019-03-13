@@ -13,7 +13,7 @@ namespace AirTrafficManager
         {
             Console.WriteLine("Du kom til at køre Main");
             var receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
-            var system = new TransponderReceiverClient(receiver);
+            var system = new TransponderReceiverClient(receiver, new TrackCalculator());
 
             while (true)
                 System.Threading.Thread.Sleep(1000);

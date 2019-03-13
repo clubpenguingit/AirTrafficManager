@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RendererUnitTests.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="MonitoredAirspaceUnitTests.cs" />
     <Compile Include="NormalLoggerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
