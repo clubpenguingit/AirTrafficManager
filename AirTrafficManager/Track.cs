@@ -78,10 +78,13 @@ namespace AirTrafficManager
                 //}
                 //else if (CompassCourse < 0)
                 //{
-                //    _CompassCourse = value
-                //}else
+                //    _CompassCourse = ( 360 - ( value * ( -1 ) ) ) % 360;
+                //}
+                //else
+                //{
+                //    _CompassCourse = value;
+                //}
             }
         }
-
     }
 }
