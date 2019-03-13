@@ -38,13 +38,13 @@ namespace AirTrafficManager
                 // Create DateTime object from trackInfo. 
                 int timeIndex = 4;
                 string timeString = trackInfo[timeIndex].Substring(0, 4) + "-" + // 'yyyy' 
-                                    trackInfo[timeIndex].Substring(5, 6) + "-" + // 'mm'
-                                    trackInfo[timeIndex].Substring(7, 8) + " " + // 'dd
-                                    trackInfo[timeIndex].Substring(9, 10) + ":" + // 'hh'
-                                    trackInfo[timeIndex].Substring(11, 12) + ":" + // 'mm'
-                                    trackInfo[timeIndex].Substring(13, 14) + "," + // 'ss'
-                                    trackInfo[timeIndex].Substring(15, 17);            // 'fff'
-                DateTime time = DateTime.ParseExact(timeString, "yyy-MM-dd HH:mm:ss,fff",
+                                    trackInfo[timeIndex].Substring(4, 2) + "-" + // 'mm'
+                                    trackInfo[timeIndex].Substring(6, 2) + " " + // 'dd
+                                    trackInfo[timeIndex].Substring(8, 2) + ":" + // 'hh'
+                                    trackInfo[timeIndex].Substring(10, 2) + ":" + // 'mm'
+                                    trackInfo[timeIndex].Substring(12, 2) + "," + // 'ss'
+                                    trackInfo[timeIndex].Substring(14, 3);            // 'fff'
+                DateTime time = DateTime.ParseExact(timeString, "yyyy-MM-dd HH:mm:ss,fff",
                                                         System.Globalization.CultureInfo.InvariantCulture);
 
                 // Create track from split data
