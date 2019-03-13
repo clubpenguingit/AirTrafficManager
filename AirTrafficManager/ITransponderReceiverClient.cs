@@ -7,11 +7,12 @@ namespace AirTrafficManager
 {
     public class DataEventArgs : EventArgs
     {
+        public List<Track> Tracks { get; set; }
+
         public DataEventArgs(List<Track> tracks)
         {
             Tracks = tracks;
         }
-        public List<Track> Tracks { get; set; }
     }
 
     public interface ITransponderReceiverClient
