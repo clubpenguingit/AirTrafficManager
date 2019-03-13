@@ -16,7 +16,7 @@ namespace ATMSUnitTests
     {
         private AirTrafficManagementSystem _atms; //
         private MonitoredAirspace _monair; //
-        private IRenderer _irend; //
+        private Renderer _irend; //
         private TransponderReceiverClient _itrc;//
         private IWriter _writer; //
         private ITransponderReceiver _itreceiver; //
@@ -42,7 +42,7 @@ namespace ATMSUnitTests
             _itreceiver = Substitute.For<ITransponderReceiver>();
             _calc = Substitute.For<TrackCalculator>();
             _itrc = new TransponderReceiverClient(_itreceiver, _calc);
-            _irend = Substitute.For<IRenderer>(_writer);
+            _irend = new Renderer(_writer);
 
             _atms = new AirTrafficManagementSystem(_monair,_irend, _itreceiver);
 
@@ -50,8 +50,9 @@ namespace ATMSUnitTests
 
 
             // Event creation
-            _tracklist.Add(new Track("plane1", 50000, 50000, 10000, DateTime.MaxValue, 150, 90));
-            _tracklist.Add(new Track("plane2", 49000, 50000, 10000, DateTime.MaxValue, 150, 90));
+            _tracklist = new List<Track>();
+            _tracklist.Add(new Track("123456", 50000, 50000, 10000, DateTime.MaxValue, 150, 90));
+            _tracklist.Add(new Track("654321", 49000, 50000, 10000, DateTime.MaxValue, 150, 90));
 
             _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
 

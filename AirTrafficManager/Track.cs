@@ -26,7 +26,7 @@ namespace AirTrafficManager
             get { return _Tag; }
             private set
             {
-                if (Tag.Length == 6)
+                if (value.Length == 6)
                 {
                     _Tag = value;
                 }
@@ -47,7 +47,7 @@ namespace AirTrafficManager
             get { return _Velocity; }
             set
             {
-                if (Velocity < 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException("Velocity cannot be negative.");
                 }
@@ -64,7 +64,7 @@ namespace AirTrafficManager
             get { return _CompassCourse;}
             set
             {
-                if (CompassCourse > 359 || CompassCourse < 0)
+                if (value > 359 || value < 0)
                 {
                     throw new ArgumentOutOfRangeException("Course was not within range.");
                 }
