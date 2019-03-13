@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -25,8 +26,12 @@ namespace ATMSUnitTests
 
             // Create unit under test
             uut = new TransponderReceiverClient(fakeReceiver, fakeCalculator);
+        }
 
-         
+        [TearDown]
+        public void TearDown()
+        {
+            uut = null; 
         }
 
 
@@ -42,7 +47,7 @@ namespace ATMSUnitTests
             int numberOfEventsReceived = 0;
             uut.DataReceivedEvent += (object s, DataEventArgs e) =>
             {
-                ++numberOfEventsReceived;
+                numberOfEventsReceived++;
             };
             // Act
             fakeReceiver.TransponderDataReady += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
@@ -50,22 +55,37 @@ namespace ATMSUnitTests
             Assert.That(numberOfEventsReceived, Is.EqualTo(1));
         }
 
-        //[Test]
-        //public void TransponderReceiverClient_fakeReceiverRaisesSpecificData_uutCreatesTrack()
-        //{
-        //    // Arrange
-        //    List<string> testData = new List<string>();
-        //    testData.Add("ATR423;39045;12932;14000;20151006213456789");
+        [Test]
+        public void TransponderReceiverClient_fakeReceiverRaisesSpecificData_uutCreatesTrack()
+        {
+            // Arrange
+            List<string> testData = new List<string>();
+            testData.Add("ATR423;39045;12932;14000;20151006213456789");
 
-        //    Track resultTrack; 
-        //    Track correctTrack = new Track("ATR423", 39045);
-        //    uut.DataReceivedEvent += (object s, DataEventArgs e) =>
-        //    {
-                
-        //    };
+            Track resultTrack = null;
+            Track correctTrack = new Track("ATR423", 
+                                            39045, 
+                                            12932, 
+                                            14000, 
+                                            new DateTime(2015,10,06,
+                                                21,34,
+                                                56,789),0, 0 );
+            uut.DataReceivedEvent += (object s, DataEventArgs e) =>
+            {
+                resultTrack = e.Tracks[0];
+            };
 
-        //    // Act 
-        //    fakeReceiver.TransponderDataReady += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
-        //}
+            // Act 
+            fakeReceiver.TransponderDataReady += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
+
+            // Assert that all properties are the same (did not work with simple object == object) 
+            Assert.That(resultTrack.Tag,            Is.EqualTo(correctTrack.Tag));
+            Assert.That(resultTrack.XCoordinate,    Is.EqualTo(correctTrack.XCoordinate));
+            Assert.That(resultTrack.YCoordinate,    Is.EqualTo(correctTrack.YCoordinate));
+            Assert.That(resultTrack.Altitude,       Is.EqualTo(correctTrack.Altitude));
+            Assert.That(resultTrack.Time,           Is.EqualTo(correctTrack.Time));
+            Assert.That(resultTrack.Velocity,       Is.EqualTo(correctTrack.Velocity));
+            Assert.That(resultTrack.CompassCourse,  Is.EqualTo(correctTrack.CompassCourse));
+        }
     }
 }
