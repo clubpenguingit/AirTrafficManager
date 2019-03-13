@@ -50,6 +50,7 @@
     <Compile Include="IInputOutput.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="ISeparationCondition.cs" />
+    <Compile Include="ITransponderReceiverClient.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="NormalLogger.cs" />
     <Compile Include="MonitoredAirspace.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Renderer.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="TrackCalculator.cs" />
+    <Compile Include="TransponderReceiverClient.cs" />
     <Compile Include="Writer.cs" />
   </ItemGroup>
   <ItemGroup>
