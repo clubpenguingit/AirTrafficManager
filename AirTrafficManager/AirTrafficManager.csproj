@@ -67,14 +67,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirTrafficManagementSystem.cs" />
-    <Compile Include="FileLogger.cs" />
+    <Compile Include="LoggingClasses\FileLogger.cs" />
     <Compile Include="IInputOutput.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="ISeparationCondition.cs" />
     <Compile Include="ITrackCalculator.cs" />
     <Compile Include="ITransponderReceiverClient.cs" />
-    <Compile Include="Logger.cs" />
-    <Compile Include="NormalLogger.cs" />
+    <Compile Include="LoggingClasses\Logger.cs" />
+    <Compile Include="LoggingClasses\NormalLogger.cs" />
     <Compile Include="MonitoredAirspace.cs" />
     <Compile Include="IWriter.cs" />
     <Compile Include="Program.cs" />
