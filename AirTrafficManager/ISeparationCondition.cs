@@ -22,5 +22,8 @@ namespace AirTrafficManager
     public interface ISeparationCondition
     {
         event EventHandler<SepCondEventArgs> WarningEvent;
+
+        void CheckForCondition(Track t1, Track t2);
     }
+
 }

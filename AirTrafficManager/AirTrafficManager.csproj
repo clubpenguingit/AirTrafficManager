@@ -74,6 +74,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="SeparationCondition.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="TrackCalculator.cs" />
     <Compile Include="Writer.cs" />

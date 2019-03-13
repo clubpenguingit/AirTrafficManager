@@ -9,7 +9,6 @@ namespace AirTrafficManager
 {
     public class ATMSEventArgs : EventArgs
     {
-        public object Sender { get; set; }
         public List<Track> Tracks { get; set; }
     }
 
