@@ -9,7 +9,7 @@ namespace AirTrafficManager
     public class Track
     {
         public Track(string tag, int xcoor, int ycoor,
-            int alt, DateTime time, int vel, int compC)
+            int alt, DateTime time, double vel, double compC)
         {
             Tag = tag;
             XCoordinate = xcoor;
@@ -25,8 +25,8 @@ namespace AirTrafficManager
         public int YCoordinate { get; private set; }
         public int Altitude { get; private set; }
         public DateTime Time { get; private set; }
-        public int Velocity { get; private set; }
-        public int CompassCourse { get; private set; }
+        public double Velocity { get; private set; }
+        public double CompassCourse { get; private set; }
 
     }
 }
