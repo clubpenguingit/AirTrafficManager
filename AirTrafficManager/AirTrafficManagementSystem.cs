@@ -27,7 +27,12 @@ namespace AirTrafficManager
             this._renderer = rend;
             this._transponderReceiver = transclient;
         }
+        
 
-
+        //When ReceiverClient events
+        private void OnReceiverClientEvent(object sender, DataEventArgs e)
+        {
+            // TODO: do
+        }
     }
 }

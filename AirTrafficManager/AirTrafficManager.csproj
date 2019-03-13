@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="AirTrafficManagementSystem.cs" />
     <Compile Include="FileLogger.cs" />
+    <Compile Include="IAirTrafficManagementSystem.cs" />
     <Compile Include="IInputOutput.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="ISeparationCondition.cs" />

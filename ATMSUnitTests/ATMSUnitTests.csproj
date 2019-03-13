@@ -70,6 +70,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeperationConditionTests.cs" />
     <Compile Include="TrackCalculatorUnitTests.cs" />
+    <Compile Include="TransponderReceiverClientUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
