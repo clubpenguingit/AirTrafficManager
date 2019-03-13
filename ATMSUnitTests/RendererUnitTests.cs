@@ -19,14 +19,16 @@ namespace ATMSUnitTests
         private Renderer uut;
         private IWriter mockWriter;
         private Track trackInput;
+        private DateTime date;
         [SetUp]
         public void Setup()
         {
+            date = DateTime.Now;
             mockWriter = Substitute.For<IWriter>();
             uut = new Renderer(mockWriter);
             trackInput = new Track(
                 "123456", 1000, 2000,
-                4000, 5000, 300);
+                4000,date, 5000, 300);
         }
 
         #endregion
@@ -80,7 +82,7 @@ namespace ATMSUnitTests
         [Test]                       //Four is outputting all the text
         public void RenderCondition_RenderTwoTracks_ReceiveFourCalls()
         {
-            var trackinput2 = new Track("234567", 1, 2, 3, 4, 5);
+            var trackinput2 = new Track("234567", 1, 2, 3,date, 4, 5);
 
             uut.RenderCondition(trackInput, trackinput2, DateTime.Now);
             mockWriter.Received(4).Write(Arg.Any<string>());
@@ -89,7 +91,7 @@ namespace ATMSUnitTests
         [Test]                 //Three is outputting all the text correctly
         public void RenderCondition_RenderTwoTracks_ReceiveNoClear()
         {
-            var trackinput2 = new Track("234567", 1, 2, 3, 4, 5);
+            var trackinput2 = new Track("234567", 1, 2, 3,date, 4, 5);
 
             uut.RenderCondition(trackInput, trackinput2, DateTime.Now);
             mockWriter.Received(0).ClearConsole();
