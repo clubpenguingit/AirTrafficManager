@@ -15,7 +15,7 @@ namespace ATMSUnitTests
         private TransponderReceiverClient uut;
         private ITrackCalculator fakeCalculator;
         private ITransponderReceiver fakeReceiver;
-               
+        private int numberOfEventsReceived;
 
         [SetUp]
         public void Setup()
@@ -26,6 +26,7 @@ namespace ATMSUnitTests
 
             // Create unit under test
             uut = new TransponderReceiverClient(fakeReceiver, fakeCalculator);
+            int numberOfEventsReceived = 0;
         }
 
 
