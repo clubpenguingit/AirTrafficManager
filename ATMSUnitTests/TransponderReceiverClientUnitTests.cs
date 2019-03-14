@@ -30,7 +30,7 @@ namespace ATMSUnitTests
         }
 
 
-        [Test]
+        /*[Test]
         public void TransponderReceiverClient_fakeReceiverRaisesEvent_uutReceivesEvent()
         {
             // Create testdata
@@ -48,7 +48,7 @@ namespace ATMSUnitTests
             fakeReceiver.TransponderDataReady += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
             // Assert
             Assert.That(numberOfEventsReceived, Is.EqualTo(1));
-        }
+        }*/
 
         [Test]
         public void TransponderReceiverClient_fakeReceiverRaisesSpecificData_uutCreatesTrack()
