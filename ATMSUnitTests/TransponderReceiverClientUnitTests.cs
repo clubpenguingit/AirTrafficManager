@@ -42,7 +42,7 @@ namespace ATMSUnitTests
             
             uut.DataReceivedEvent += (object s, DataEventArgs e) =>
             {
-                numberOfEventsReceived++;
+                ++numberOfEventsReceived;
             };
             // Act
             fakeReceiver.TransponderDataReady += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
