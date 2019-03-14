@@ -15,46 +15,61 @@ namespace ATMSUnitTests
     public class RendererUnitTests
     {
         #region Setup
-
+        // Attributes to be used in tests
         private Renderer uut;
         private IWriter mockWriter;
-        private Track trackInput;
+        private List<Track> trackInput;
         private DateTime date;
+
         [SetUp]
         public void Setup()
         {
             date = DateTime.Now;
             mockWriter = Substitute.For<IWriter>();
             uut = new Renderer(mockWriter);
-            trackInput = new Track(
-                "123456", 1000, 2000,
-                4000,date, 5000, 300);
+            trackInput = new List<Track>();
+            trackInput.Add(new Track("123456", 1000, 2000,
+                4000, date, 5000, 300));
+            
         }
 
         #endregion
 
 
-        #region RenderAirCraftTests
+        #region RenderAirCraftsTests
 
 
         [Test]
-        public void RenderAirCraft_RendersInputCorrectly()
+        public void RenderAirCrafts_GetsOneTrack_RendersCorrectly()
         {
             //Act
-            uut.RenderAirCraft(trackInput);
+            uut.RenderAirCrafts(trackInput);
             //Assert
-            mockWriter.Received(1).Write($"\nTag: {trackInput.Tag}\n" +
-                                         $"Coordinates: ({trackInput.XCoordinate} , {trackInput.YCoordinate}) meters\n" +
-                                         $"Altitude: {trackInput.Altitude} meters\n" +
-                                         $"Velocity: {trackInput.Velocity} meters\n" +
-                                         $"Compass course: {trackInput.CompassCourse}");
+            mockWriter.Received(1).Write($"Tag: {trackInput[0].Tag}\n" +
+                                         $"Coordinates: ({trackInput[0].XCoordinate} , {trackInput[0].YCoordinate}) meters\n" +
+                                         $"Altitude: {trackInput[0].Altitude} meters\n" +
+                                         $"Velocity: {trackInput[0].Velocity} meters\n" +
+                                         $"Compass course: {trackInput[0].CompassCourse}\n");
+        }
+
+        [Test]
+        public void RenderAirCrafts_GetTwoTracks_RendersBothCorrectly()
+        {
+            // Arrange - Add extra track to list. 
+            trackInput.Add(new Track("098765", 46, 100, 1000, DateTime.MaxValue, 1000, 359));
+
+            // Act - Render both tracks
+            uut.RenderAirCrafts(trackInput);
+
+            // Assert - Received 2 different calls to write to screen
+            mockWriter.Received(2).Write(Arg.Any<string>());
         }
 
         [Test]
         public void RenderAirCraft_CallWithNoClear_DoesNotClear()
         {
             bool clear = false;
-            uut.RenderAirCraft(trackInput, clear);
+            uut.RenderAirCrafts(trackInput, clear);
 
             mockWriter.Received(0).ClearConsole();
         }
@@ -63,7 +78,7 @@ namespace ATMSUnitTests
         public void RenderAirCraft_CallWithClear_DoesClear()
         {
             bool clear = true;
-            uut.RenderAirCraft(trackInput, clear);
+            uut.RenderAirCrafts(trackInput, clear);
 
             mockWriter.Received(1).ClearConsole();
         }
@@ -71,7 +86,7 @@ namespace ATMSUnitTests
         [Test]
         public void RenderAirCraft_CallWithoutSecondParam_DoesClearDefault()
         {
-            uut.RenderAirCraft(trackInput);
+            uut.RenderAirCrafts(trackInput);
             mockWriter.Received(1).ClearConsole();
         }
         #endregion
@@ -79,25 +94,38 @@ namespace ATMSUnitTests
 
         #region RenderConditionTests
 
-        [Test]                       //Four is outputting all the text
-        public void RenderCondition_RenderTwoTracks_ReceiveFourCalls()
+        [Test]  // Three is outputting all the text needed for rendering 
+                // 2 for rendering aircrafts, 1 for error msg. 
+        public void RenderCondition_RenderTwoTracks_ReceiveThreeCalls()
         {
-            var trackinput2 = new Track("234567", 1, 2, 3,date, 4, 5);
+            // Arrange - Add new track to list (contains total of 2 then)
+            trackInput.Add(new Track("098765", 46, 100, 1000, DateTime.MaxValue, 1000, 359));
 
-            uut.RenderCondition(trackInput, trackinput2, DateTime.Now);
-            mockWriter.Received(4).Write(Arg.Any<string>());
+            uut.RenderCondition(trackInput[0], trackInput[1], DateTime.Now);
+            mockWriter.Received(3).Write(Arg.Any<string>());
         }
 
         [Test]                 //Three is outputting all the text correctly
         public void RenderCondition_RenderTwoTracks_ReceiveNoClear()
         {
-            var trackinput2 = new Track("234567", 1, 2, 3,date, 4, 5);
+            // Arrange - Add new track to list (contains total of 2 then)
+            trackInput.Add(new Track("098765", 46, 100, 1000, DateTime.MaxValue, 1000, 359));
 
-            uut.RenderCondition(trackInput, trackinput2, DateTime.Now);
+            uut.RenderCondition(trackInput[0], trackInput[1] , DateTime.Now);
             mockWriter.Received(0).ClearConsole();
-            
+
         }
 
+
+        #endregion
+
+        #region ATMSEventTests
+
+        //[Test]
+        //public void OnDataReadyInATMS_EventInvokedInStub_EventIsReceivedByRenderer()
+        //{
+
+        //}
 
         #endregion
 
