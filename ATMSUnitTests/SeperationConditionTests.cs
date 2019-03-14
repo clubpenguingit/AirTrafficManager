@@ -77,7 +77,7 @@ namespace ATMSUnitTests
 
         }
 
-        [Test]
+        /*[Test]
         public void Reeee()
         {
 
@@ -87,6 +87,6 @@ namespace ATMSUnitTests
             _atms.DataReady += Raise.EventWith(_argsToSend);
 
             log.Received(1).SepConditionOccured(Arg.Any<object>(), Arg.Any<SepCondEventArgs>());
-        }
+        }*/
     }
 }
