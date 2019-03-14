@@ -10,8 +10,8 @@ namespace AirTrafficManager
     {
         public event EventHandler<SepCondEventArgs> WarningEvent;
 
-        protected AirTrafficManagementSystem _atms;
-        public SeparationCondition(AirTrafficManagementSystem atms)
+        protected IAirTrafficManagementSystem _atms;
+        public SeparationCondition(IAirTrafficManagementSystem atms)
         {
             this._atms = atms;
             this._atms.DataReady += DataReceived;
