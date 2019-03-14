@@ -26,8 +26,8 @@ namespace AirTrafficManager
            //r.RenderAirCrafts(l, true);
            //r.RenderCondition(t,t2, DateTime.Now);
 
-            while (false)
-                System.Threading.Thread.Sleep(1000);
+            //while (false)
+            //    System.Threading.Thread.Sleep(1000);
         }
     }
 }

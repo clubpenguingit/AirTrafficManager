@@ -83,11 +83,8 @@ namespace ATMSUnitTests
         {
             _atms.DataReady += Raise.EventWith(_argsToSend);
             _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
-
-
-
-
-        //}
+            
+        }
 
         /*[Test]
         public void Reeee()
