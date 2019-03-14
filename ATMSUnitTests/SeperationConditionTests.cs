@@ -23,6 +23,7 @@ namespace ATMSUnitTests
         private ATMSEventArgs _argsReceived;
         private ATMSEventArgs _argsToSend;
         private SepCondEventArgs _sepCondEventArgs;
+        private RendEventArgs _rendEventArgs;
         private SeparationCondition sepcond;
 
         private List<Track> _tracklist;
@@ -54,6 +55,12 @@ namespace ATMSUnitTests
             _sepCondEventArgs.Track2 = new Track("654321", 49000, 50000, 10000, DateTime.MaxValue, 150, 90);
             _sepCondEventArgs.TimeOfOccurrence = DateTime.MaxValue;
 
+            _rendEventArgs = new RendEventArgs();
+            var sepcondlist = new List<SepCondEventArgs>();
+            sepcondlist.Add(_sepCondEventArgs);
+            _rendEventArgs.listOfCurrentConditions = sepcondlist;
+            _rendEventArgs.TimeOfEvent = DateTime.Now;
+
             _atms.DataReady += (o, args) =>
             {
                 _argsReceived = args;
@@ -64,13 +71,18 @@ namespace ATMSUnitTests
                 _sepCondEventArgs = args2;
             };
 
+            sepcond.RendererWarning += (o, args3) =>
+            {
+                _rendEventArgs = args3;
+            };
+
         }
 
-        //[Test]
-        //public void ReceivedEvent()
-        //{
-        //    _atms.DataReady += Raise.EventWith(_argsToSend);
-        //    _inputoutput.Received(1).Write(_sepCondEventArgs, "testfil");
+        [Test]
+        public void ReceivedEvent()
+        {
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
 
 
 

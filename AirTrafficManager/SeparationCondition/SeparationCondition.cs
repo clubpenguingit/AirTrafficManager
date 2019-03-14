@@ -7,12 +7,26 @@ using NUnit.Framework;
 
 namespace AirTrafficManager
 {
+    public class Occurence
+    {
+        public string Tag1 { get; set; }
+        public string Tag2 { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var o = obj as Occurence;
+            return ((this.Tag1 == o.Tag1) && (this.Tag2 == o.Tag2))
+                   || //OR
+                   ((this.Tag2 == o.Tag1) && (this.Tag1 == o.Tag2));
+        }
+    }
+
     public class SeparationCondition : ISeparationCondition
     {
         public event EventHandler<SepCondEventArgs> WarningEvent;
         public event EventHandler<RendEventArgs> RendererWarning;
 
-        private List<List<Track>> _listOfSepcondTracks;
+        private List<Occurence> _listOfConditionTracks;
         private List<SepCondEventArgs> _SepCondEventArgsList;
 
         protected IAirTrafficManagementSystem _atms;
@@ -21,6 +35,8 @@ namespace AirTrafficManager
         {
             this._atms = atms;
             this._atms.DataReady += DataReceived;
+            _listOfConditionTracks = new List<Occurence>();
+            _SepCondEventArgsList = new List<SepCondEventArgs>();
         }
 
 
@@ -34,11 +50,11 @@ namespace AirTrafficManager
                 {
                     if (t != track)
                     {
-                        if (CheckIfInList(t, track) != false)
+                        if (CheckIfInList(t, track) == false)
                         {
                             CheckForCondition(t, track);
                         }
-                        else if (CheckIfInList(t,track) == true)
+                        else if (CheckIfInList(t,track))
                         {
                             RemoveIfNoLongerCondition(t, track);
                         }
@@ -65,12 +81,10 @@ namespace AirTrafficManager
             }
             else
             {
-                var templist = new List<Track>();
-                templist.Add(track1);
-                templist.Add(track2);
-                _listOfSepcondTracks.Remove(templist);
-                templist.Reverse();
-                _listOfSepcondTracks.Remove(templist);
+                var removeHelper = new Occurence();
+                removeHelper.Tag1 = track1.Tag;
+                removeHelper.Tag2 = track2.Tag;
+                _listOfConditionTracks.Remove(removeHelper);
             }
         }
 
@@ -113,38 +127,31 @@ namespace AirTrafficManager
         // Adds to the list of tracks that has separation conditions
         private void AddToTrackList(Track t1, Track t2)
         {
-            var templist = new List<Track>();
-            templist.Add(t1);
-            templist.Add(t2);
+            var tempocc = new Occurence();
+            tempocc.Tag1 = t1.Tag;
+            tempocc.Tag2 = t2.Tag;
 
-            _listOfSepcondTracks.Add(templist);
+            _listOfConditionTracks.Add(tempocc);
 
-            templist.Reverse();
-            _listOfSepcondTracks.Add(templist);
         }
 
 
         // Checks if two tracks are in the list of separation conditions in both ways
         private bool CheckIfInList(Track a, Track b)
         {
-            var tempList = new List<Track>();
-            tempList.Add(a);
-            tempList.Add(b);
-           
-            if (_listOfSepcondTracks.Contains(tempList))
+            var tempocc = new Occurence();
+            tempocc.Tag1 = a.Tag;
+            tempocc.Tag2 = b.Tag;
+            foreach (var occ in _listOfConditionTracks)
             {
-                return true;
+                if (occ.Equals(tempocc))
+                {
+                    return true;
+                }
             }
-
-            tempList.Reverse();
-            if (_listOfSepcondTracks.Contains(tempList))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            
+            return false;
+            
         }
     }
 }
