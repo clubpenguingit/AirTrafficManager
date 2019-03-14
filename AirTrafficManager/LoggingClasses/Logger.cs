@@ -4,10 +4,11 @@ using System.Linq;
 using System.Runtime.Remoting.Services;
 using System.Text;
 using System.Threading.Tasks;
+using AirTrafficManager.LoggingClasses;
 
 namespace AirTrafficManager.Log
 {
-    public abstract class Logger
+    public abstract class Logger : ILogger
     {
         protected ISeparationCondition SepCond;
         protected string FileName;

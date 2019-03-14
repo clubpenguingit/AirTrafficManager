@@ -15,7 +15,7 @@ namespace ATMSUnitTests
         private TransponderReceiverClient uut;
         private ITrackCalculator fakeCalculator;
         private ITransponderReceiver fakeReceiver;
-               
+        private int numberOfEventsReceived;
 
         [SetUp]
         public void Setup()
@@ -26,6 +26,7 @@ namespace ATMSUnitTests
 
             // Create unit under test
             uut = new TransponderReceiverClient(fakeReceiver, fakeCalculator);
+            int numberOfEventsReceived = 0;
         }
 
         [Test]
@@ -49,12 +50,12 @@ namespace ATMSUnitTests
             Assert.That(numberOfEventsReceived, Is.EqualTo(1));
         }
 
-        [Test]
-        public void TransponderReceiverClient_fakeReceiverRaisesSpecificData_uutCreatesTrack()
-        {
-            // Arrange
-            List<string> testData = new List<string>();
-            testData.Add("ATR423;39045;12932;14000;20151006213456789");
+        //[Test]
+        //public void TransponderReceiverClient_fakeReceiverRaisesSpecificData_uutCreatesTrack()
+        //{
+        //    // Arrange
+        //    List<string> testData = new List<string>();
+        //    testData.Add("ATR423;39045;12932;14000;20151006213456789");
 
             Track resultTrack = null;
             Track correctTrack = new Track("ATR423", 39045, 12932, 14000,
@@ -65,8 +66,8 @@ namespace ATMSUnitTests
                 resultTrack = e.Tracks[0];
             };
 
-            // Act 
-            fakeReceiver.TransponderDataReady += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
+        //    // Act 
+        //    fakeReceiver.TransponderDataReady += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
 
             // Assert that all properties are the same
             Assert.That(resultTrack.Tag, Is.EqualTo(correctTrack.Tag));

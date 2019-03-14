@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using AirTrafficManager;
 using AirTrafficManager.Log;
+using AirTrafficManager.LoggingClasses;
 using NSubstitute;
 using TransponderReceiver;
 
 namespace ATMSUnitTests
 {
-    class SeperationConditionTests
+    public class SeperationConditionTests
     {
-        private AirTrafficManagementSystem _atms; //
-        private MonitoredAirspace _monair; //
-        private Renderer _irend; //
-        private TransponderReceiverClient _itrc;//
+        private IAirTrafficManagementSystem _atms; //
         private IWriter _writer; //
-        private ITransponderReceiver _itreceiver; //
-        private TrackCalculator _calc;//
+        private NormalLogger _log;
+        private IInputOutput _inputoutput;
 
         private ATMSEventArgs _argsReceived;
         private ATMSEventArgs _argsToSend;
+        private SepCondEventArgs _sepCondEventArgs;
+        private SeparationCondition sepcond;
 
         private List<Track> _tracklist;
 
@@ -33,20 +33,14 @@ namespace ATMSUnitTests
             _argsReceived = null;
 
             // Creation of all the required classes
-            _monair = new MonitoredAirspace(
-                95000, 5000, 
-                95000, 5000, 
-                20000, 500);
 
             _writer = Substitute.For<IWriter>();
-            _itreceiver = Substitute.For<ITransponderReceiver>();
-            _calc = Substitute.For<TrackCalculator>();
-            _itrc = new TransponderReceiverClient(_itreceiver, _calc);
-            _irend = new Renderer(_writer);
+            _inputoutput = Substitute.For<IInputOutput>();
 
-            _atms = new AirTrafficManagementSystem(_monair,_irend, _itreceiver);
+            _atms = Substitute.For<IAirTrafficManagementSystem>();
 
-            var sepcond = new SeparationCondition(_atms);
+            sepcond = new SeparationCondition(_atms);
+            _log = new NormalLogger("testfil", sepcond, _inputoutput);
 
 
             // Event creation
@@ -55,10 +49,19 @@ namespace ATMSUnitTests
             _tracklist.Add(new Track("654321", 49000, 50000, 10000, DateTime.MaxValue, 150, 90));
 
             _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
+            _sepCondEventArgs = new SepCondEventArgs();
+            _sepCondEventArgs.Track1= new Track("123456", 50000, 50000, 10000, DateTime.MaxValue, 150, 90);
+            _sepCondEventArgs.Track2 = new Track("654321", 49000, 50000, 10000, DateTime.MaxValue, 150, 90);
+            _sepCondEventArgs.TimeOfOccurrence = DateTime.MaxValue;
 
             _atms.DataReady += (o, args) =>
             {
                 _argsReceived = args;
+            };
+
+            sepcond.WarningEvent += (o, args2) =>
+            {
+                _sepCondEventArgs = args2;
             };
 
         }
@@ -67,8 +70,23 @@ namespace ATMSUnitTests
         public void ReceivedEvent()
         {
             _atms.DataReady += Raise.EventWith(_argsToSend);
+            _inputoutput.Received(1).Write(_sepCondEventArgs, "testfil");
+
+
 
 
         }
+
+        /*[Test]
+        public void Reeee()
+        {
+
+            var log = Substitute.For<ILogger>();
+            sepcond.WarningEvent += log.SepConditionOccured;
+
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+
+            log.Received(1).SepConditionOccured(Arg.Any<object>(), Arg.Any<SepCondEventArgs>());
+        }*/
     }
 }

@@ -72,6 +72,7 @@ namespace AirTrafficManager
                 {
                     _CompassCourse = value;
                 }
+
                 //if (CompassCourse > 359)
                 //{
                 //    _CompassCourse = value % 360;
