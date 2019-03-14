@@ -15,7 +15,7 @@ namespace ATMSUnitTests
         private TransponderReceiverClient uut;
         private ITrackCalculator fakeCalculator;
         private ITransponderReceiver fakeReceiver;
-               
+        private int numberOfEventsReceived;
 
         [SetUp]
         public void Setup()
@@ -26,6 +26,7 @@ namespace ATMSUnitTests
 
             // Create unit under test
             uut = new TransponderReceiverClient(fakeReceiver, fakeCalculator);
+            int numberOfEventsReceived = 0;
         }
 
 
@@ -38,7 +39,7 @@ namespace ATMSUnitTests
             testData.Add("BCD123;10005;85890;12000;20151006213456789");
             testData.Add("XYZ987;25059;75654;4000;20151006213456789");
 
-            int numberOfEventsReceived = 0;
+            
             uut.DataReceivedEvent += (object s, DataEventArgs e) =>
             {
                 numberOfEventsReceived++;
