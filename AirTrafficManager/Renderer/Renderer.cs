@@ -8,12 +8,16 @@ namespace AirTrafficManager
     {
         private IWriter _writer;
         private ISeparationCondition _condition;
+        private IAirTrafficManagementSystem _atms;
 
-        public Renderer(IWriter writer   )//, ISeparationCondition sepcond)
+        public Renderer(IWriter writer, ISeparationCondition sepcond, IAirTrafficManagementSystem atms)//, ISeparationCondition sepcond)
         {
             _writer = writer;
-           // _condition = sepcond;
-            //Subscribe to conditionevent. 
+           _condition = sepcond;
+           _atms = atms;
+           //Subscribe to conditionevent. 
+           _condition.RendererWarning += OnSepCondition;
+           _atms.DataReady += OnDataReadyInATMS;
         }
         public void RenderAirCrafts(List<Track> tracks, bool clear = true)
         {
@@ -51,9 +55,12 @@ namespace AirTrafficManager
             RenderAirCrafts(e.Tracks, true);
         }
 
-        //private void OnSepCondition(object sender, TODO Todo)
-        //{
-
-        //}
+        private void OnSepCondition(object sender, RendEventArgs e)
+        {
+            foreach (var condition in e.listOfCurrentConditions)
+            {
+                RenderCondition(condition.Track1, condition.Track2, e.TimeOfEvent);
+            }
+        }
     }
 }

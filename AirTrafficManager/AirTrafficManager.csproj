@@ -66,8 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AirTrafficManagementSystem.cs" />
-    <Compile Include="IAirTrafficManagementSystem.cs" />
+    <Compile Include="AirTrafficManagerSystem\AirTrafficManagementSystem.cs" />
+    <Compile Include="AirTrafficManagerSystem\IAirTrafficManagementSystem.cs" />
     <Compile Include="LoggingClasses\FileLogger.cs" />
     <Compile Include="LoggingClasses\IInputOutput.cs" />
     <Compile Include="LoggingClasses\ILogger.cs" />

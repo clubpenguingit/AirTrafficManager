@@ -18,6 +18,8 @@ namespace ATMSUnitTests
         // Attributes to be used in tests
         private Renderer uut;
         private IWriter mockWriter;
+        private IAirTrafficManagementSystem stubAtms;
+        private ISeparationCondition stubSepCond;
         private List<Track> trackInput;
         private DateTime date;
 
@@ -25,8 +27,13 @@ namespace ATMSUnitTests
         public void Setup()
         {
             date = DateTime.Now;
+
             mockWriter = Substitute.For<IWriter>();
-            uut = new Renderer(mockWriter);
+            stubAtms = Substitute.For<IAirTrafficManagementSystem>();
+            stubSepCond = Substitute.For<ISeparationCondition>();
+
+            uut = new Renderer(mockWriter, stubSepCond, stubAtms);
+
             trackInput = new List<Track>();
             trackInput.Add(new Track("123456", 1000, 2000,
                 4000, date, 5000, 300));
@@ -121,11 +128,74 @@ namespace ATMSUnitTests
 
         #region ATMSEventTests
 
-        //[Test]
-        //public void OnDataReadyInATMS_EventInvokedInStub_EventIsReceivedByRenderer()
-        //{
+        [Test]
+        public void OnDataReadyInATMS_EventInvokedInStub_EventIsReceivedByRendererAndWrittenByWriter()
+        {
+            var args = new ATMSEventArgs();
+            args.Tracks = trackInput;
+            stubAtms.DataReady += Raise.EventWith(this, args);
 
-        //}
+            mockWriter.Received(1).Write($"Tag: {trackInput[0].Tag}\n" +
+                                         $"Coordinates: ({trackInput[0].XCoordinate} , {trackInput[0].YCoordinate}) meters\n" +
+                                         $"Altitude: {trackInput[0].Altitude} meters\n" +
+                                         $"Velocity: {trackInput[0].Velocity} meters\n" +
+                                         $"Compass course: {trackInput[0].CompassCourse}\n");
+            mockWriter.Received(1).ClearConsole();
+        }
+
+        [Test]
+        public void OnSepCondition_OneConditionReceived_OutputsOneCondition()
+        {
+            // Arrange
+            // Create everything required for RendEventArgs
+            var args = new RendEventArgs();
+            var listOfEvents = new List<SepCondEventArgs>();
+            var condEventArgs = new SepCondEventArgs();
+
+            condEventArgs.TimeOfOccurrence = DateTime.Now;
+            condEventArgs.Track1 = new Track("123456", 10, 100, 1000, DateTime.Now, 1000, 300);
+            condEventArgs.Track2 = new Track("098765", 20, 30, 500, DateTime.Now, 4000, 200);
+            listOfEvents.Add(condEventArgs);
+    
+            args.TimeOfEvent = condEventArgs.TimeOfOccurrence;
+            args.listOfCurrentConditions = listOfEvents;
+
+            // Act - Raise the event
+            stubSepCond.RendererWarning += Raise.EventWith(this, args);
+            
+            // Assert - mockWriter has received calls from uut
+            mockWriter.Received(3).Write(Arg.Any<string>());
+        }
+
+        [Test]
+        public void OnSepCondition_TwoConditionsReceived_OutputsTwoConditions()
+        {
+            // Arrange
+            // Create everything required for RendEventArgs
+            var args = new RendEventArgs();
+            var listOfEvents = new List<SepCondEventArgs>();
+            var condEventArgs = new SepCondEventArgs();
+
+            condEventArgs.TimeOfOccurrence = DateTime.Now;
+            condEventArgs.Track1 = new Track("123456", 10, 100, 1000, DateTime.Now, 1000, 300);
+            condEventArgs.Track2 = new Track("098765", 20, 30, 500, DateTime.Now, 4000, 200);
+            listOfEvents.Add(condEventArgs);
+
+            var condEventArgs2 = new SepCondEventArgs();
+            condEventArgs2.TimeOfOccurrence = DateTime.MaxValue;
+            condEventArgs2.Track1 = new Track("586038", 2364, 23456, 94865, DateTime.MaxValue, 1094, 224);
+            condEventArgs2.Track2 = new Track("985736", 9586, 4956, 2345, DateTime.MinValue, 0, 0);
+            listOfEvents.Add(condEventArgs2);
+
+            args.TimeOfEvent = DateTime.Now;
+            args.listOfCurrentConditions = listOfEvents;
+
+            // Act - Raise the event
+            stubSepCond.RendererWarning += Raise.EventWith(this, args);
+
+            // Assert - mockWriter has received calls from uut
+            mockWriter.Received(6).Write(Arg.Any<string>());
+        }
 
         #endregion
 

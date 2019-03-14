@@ -66,16 +66,16 @@ namespace ATMSUnitTests
 
         }
 
-        [Test]
-        public void ReceivedEvent()
-        {
-            _atms.DataReady += Raise.EventWith(_argsToSend);
-            _inputoutput.Received(1).Write(_sepCondEventArgs, "testfil");
+        //[Test]
+        //public void ReceivedEvent()
+        //{
+        //    _atms.DataReady += Raise.EventWith(_argsToSend);
+        //    _inputoutput.Received(1).Write(_sepCondEventArgs, "testfil");
 
 
 
 
-        }
+        //}
 
         /*[Test]
         public void Reeee()

@@ -16,16 +16,15 @@ namespace AirTrafficManager
     {
 
         private MonitoredAirspace _monitoredAirspace;
-        private IRenderer _renderer;
-        private ITransponderReceiver _transponderReceiver;
+        private ITransponderReceiverClient _transPondRecClient;
 
         public event EventHandler<ATMSEventArgs> DataReady;
 
-        public AirTrafficManagementSystem(MonitoredAirspace monair, IRenderer rend, ITransponderReceiver transclient)
+        public AirTrafficManagementSystem(MonitoredAirspace monair,  ITransponderReceiverClient transclient)
         {
             this._monitoredAirspace = monair;
-            this._renderer = rend;
-            this._transponderReceiver = transclient;
+            this._transPondRecClient = transclient;
+            _transPondRecClient.DataReceivedEvent += OnReceiverClientEvent;
         }
         
 
@@ -33,6 +32,15 @@ namespace AirTrafficManager
         private void OnReceiverClientEvent(object sender, DataEventArgs e)
         {
             // TODO: do
+            var airCraftsInAirspaceList = new List<Track>();
+
+            foreach (var track in e.Tracks)
+            {
+                if (_monitoredAirspace.ValidateAirspace(track))
+                {
+
+                }
+            }
         }
     }
 }
