@@ -9,7 +9,7 @@ using TransponderReceiver;
 
 namespace ATMSUnitTests
 {
-    [TestFixture()]
+    [TestFixture]
     public class TransponderReceiverClientUnitTests
     {
         private TransponderReceiverClient uut;
@@ -26,12 +26,6 @@ namespace ATMSUnitTests
 
             // Create unit under test
             uut = new TransponderReceiverClient(fakeReceiver, fakeCalculator);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            uut = null; 
         }
 
 
@@ -63,12 +57,8 @@ namespace ATMSUnitTests
             testData.Add("ATR423;39045;12932;14000;20151006213456789");
 
             Track resultTrack = null;
-            Track correctTrack = new Track("ATR423", 
-                                            39045, 
-                                            12932, 
-                                            14000, 
-                                            new DateTime(2015,10,06,
-                                                21,34,
+            Track correctTrack = new Track("ATR423", 39045,12932, 14000, 
+                                            new DateTime(2015,10,06, 21,34,
                                                 56,789),0, 0 );
             uut.DataReceivedEvent += (object s, DataEventArgs e) =>
             {
