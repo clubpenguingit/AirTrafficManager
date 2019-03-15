@@ -43,18 +43,19 @@ namespace ATMSUnitTests
             sepcond = new SeparationCondition(_atms);
             _log = new NormalLogger("testfil", sepcond, _inputoutput);
 
-
             // Event creation
             _tracklist = new List<Track>();
             _tracklist.Add(new Track("123456", 50000, 50000, 10000, DateTime.MaxValue, 150, 90));
             _tracklist.Add(new Track("654321", 49000, 50000, 10000, DateTime.MaxValue, 150, 90));
-
             _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
+
+            // Arguments that sepcond sends to logger when it makes an event
             _sepCondEventArgs = new SepCondEventArgs();
-            _sepCondEventArgs.Track1= new Track("123456", 50000, 50000, 10000, DateTime.MaxValue, 150, 90);
+            _sepCondEventArgs.Track1 = new Track("123456", 50000, 50000, 10000, DateTime.MaxValue, 150, 90);
             _sepCondEventArgs.Track2 = new Track("654321", 49000, 50000, 10000, DateTime.MaxValue, 150, 90);
             _sepCondEventArgs.TimeOfOccurrence = DateTime.MaxValue;
 
+            // Arguments that sepcond sends to Renderer when it makes an event
             _rendEventArgs = new RendEventArgs();
             var sepcondlist = new List<SepCondEventArgs>();
             sepcondlist.Add(_sepCondEventArgs);
@@ -75,7 +76,6 @@ namespace ATMSUnitTests
             {
                 _rendEventArgs = args3;
             };
-
         }
 
         [Test]
@@ -83,7 +83,27 @@ namespace ATMSUnitTests
         {
             _atms.DataReady += Raise.EventWith(_argsToSend);
             _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
-            
+        }
+
+        [Test]
+        public void ConditionGone()
+        {
+            //First set in setup
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+
+            //Second set
+            _tracklist = new List<Track>();
+            _tracklist.Add(new Track("123456", 50000, 50000, 10000, DateTime.MaxValue, 150, 90));
+            _tracklist.Add(new Track("654321", 30000, 30000, 9000, DateTime.MaxValue, 150, 180));
+
+            _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
+            _sepCondEventArgs = new SepCondEventArgs();
+            _sepCondEventArgs.Track1 = new Track("111111", 50000, 50000, 10000, DateTime.MaxValue, 150, 90);
+            _sepCondEventArgs.Track2 = new Track("222222", 30000, 30000, 9000, DateTime.MaxValue, 150, 180);
+            _sepCondEventArgs.TimeOfOccurrence = DateTime.MaxValue;
+
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
         }
 
         /*[Test]
