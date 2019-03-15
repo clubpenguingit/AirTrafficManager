@@ -98,8 +98,8 @@ namespace ATMSUnitTests
 
             _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
             _sepCondEventArgs = new SepCondEventArgs();
-            _sepCondEventArgs.Track1 = new Track("111111", 50000, 50000, 10000, DateTime.MaxValue, 150, 90);
-            _sepCondEventArgs.Track2 = new Track("222222", 30000, 30000, 9000, DateTime.MaxValue, 150, 180);
+            _sepCondEventArgs.Track1 = new Track("123456", 50000, 50000, 10000, DateTime.MaxValue, 150, 90);
+            _sepCondEventArgs.Track2 = new Track("654321", 30000, 30000, 9000, DateTime.MaxValue, 150, 180);
             _sepCondEventArgs.TimeOfOccurrence = DateTime.MaxValue;
 
             _atms.DataReady += Raise.EventWith(_argsToSend);
