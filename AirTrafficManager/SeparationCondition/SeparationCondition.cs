@@ -142,15 +142,17 @@ namespace AirTrafficManager
             var tempocc = new Occurence();
             tempocc.Tag1 = a.Tag;
             tempocc.Tag2 = b.Tag;
+            bool doesItExist = false;
             foreach (var occ in _listOfConditionTracks)
             {
                 if (occ.Equals(tempocc))
                 {
-                    return true;
+                    doesItExist = true;
                 }
+
             }
             
-            return false;
+            return doesItExist;
             
         }
     }
