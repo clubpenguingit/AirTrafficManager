@@ -23,13 +23,20 @@ namespace AirTrafficManager
 
         public double CalculateCourse(int x1, int x2, int y1, int y2)
         {
-            var m = (y2 - y1) / (x2 - x1);
+            var bearing = Math.Atan2((y2 - y1), (x2 - x1));
 
-            var courseRadians = Math.Atan(m);
+            var bearingDegrees = bearing * 180 / Math.PI;
 
-            var courseDegrees = courseRadians * (180 / Math.PI);
-
-            return courseDegrees;
+            if (x2 - x1 < 0 && y2 - y1 >= 0)
+            {
+                var courseDegrees = 450 - bearingDegrees;
+                return courseDegrees;
+            }
+            else
+            {
+                var courseDegrees = 90 - bearingDegrees;
+                return courseDegrees;
+            }
         }
     }
 }
