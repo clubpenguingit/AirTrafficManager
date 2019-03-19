@@ -41,31 +41,41 @@ namespace AirTrafficManager
             {
                 // Look for track in list of tracks in airspace
                 var foundTrack = _airCraftsInAirspaceList.Find(ByTag(track.Tag));
-
+                Track trackToValidate = null;
                 // If already in list - update speed and coordinates.
                 if (foundTrack != null)
                 {
-                    var velocity = _trackCalculator.CalculateVelocity(track.XCoordinate, foundTrack.XCoordinate,
-                        track.YCoordinate, foundTrack.YCoordinate,
-                        track.Altitude, foundTrack.Altitude,
-                        track.Time.Second, foundTrack.Time.Second); // Second might have to change to ToADate e.g.
+                    double trackSeconds = (track.Time.Minute * 60) + track.Time.Second;
+                    double foundTrackSeconds = (foundTrack.Time.Minute * 60) + foundTrack.Time.Second;
 
-                    var compassCourse = _trackCalculator.CalculateCourse(track.XCoordinate, foundTrack.YCoordinate,
-                        track.YCoordinate, foundTrack.YCoordinate);
+                    var velocity = _trackCalculator.CalculateVelocity(foundTrack.XCoordinate, track.XCoordinate,
+                        foundTrack.YCoordinate, track.YCoordinate,
+                        foundTrack.Altitude, track.Altitude,
+                        foundTrackSeconds, trackSeconds );
 
-                    var newTrack = new Track(foundTrack.Tag, foundTrack.XCoordinate, foundTrack.YCoordinate,
-                        foundTrack.Altitude, track.Time, velocity, compassCourse);
+                    var compassCourse = _trackCalculator.CalculateCourse(foundTrack.XCoordinate, track.XCoordinate,
+                        foundTrack.YCoordinate, track.YCoordinate);
+
+                    var newTrack = new Track(foundTrack.Tag, track.XCoordinate, track.YCoordinate,
+                        track.Altitude, track.Time, velocity, compassCourse);
+
+                    _airCraftsInAirspaceList.Remove(foundTrack);
+                    _airCraftsInAirspaceList.Add(newTrack);
+                    trackToValidate = newTrack;
                 }
-                // If not in list - add it    This should be tested - intellisense says expression is alwais true
+
+                // If not in list - add it    This should be tested - intellisense says expression is always true
                 else if (foundTrack == null)
                 {
                     _airCraftsInAirspaceList.Add(track);
+                    trackToValidate = track;
                 }
+
                 // If outside airspace, remove it. 
-                bool inAirSpace = _monitoredAirspace.ValidateAirspace(track);
+                bool inAirSpace = _monitoredAirspace.ValidateAirspace(trackToValidate);
                 if (!inAirSpace)
                 {
-                    _airCraftsInAirspaceList.Remove(track);
+                    _airCraftsInAirspaceList.Remove(trackToValidate);
                 }
             }
 
