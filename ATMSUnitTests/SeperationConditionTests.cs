@@ -166,5 +166,28 @@ namespace ATMSUnitTests
             _atms.DataReady += Raise.EventWith(_argsToSend);
             _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
         }
+
+        [Test]
+        public void SepCondEvent_AddSameTracksTwiceWithSepCond_Raise1Event()
+        {
+            //First set in setup
+            Track track1 = new Track("123456", 50000, 50000, 10000, DateTime.Now, 150, 90);
+            Track track2 = new Track("654321", 49000, 50000, 10000, DateTime.Now, 150, 90);
+            _tracklist = new List<Track>();
+            _tracklist.Add(track1);
+            _tracklist.Add(track2);
+            _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+
+            //Second set
+            _tracklist = new List<Track>();
+            _tracklist.Add(new Track("123456", 50000, 50000, 10000, DateTime.Now, 150, 90));
+            _tracklist.Add(new Track("654321", 49500, 50000, 10000, DateTime.Now, 150, 180));
+
+            _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
+
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
+        }
     }
 }
