@@ -106,16 +106,5 @@ namespace ATMSUnitTests
             _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
         }
 
-        /*[Test]
-        public void Reeee()
-        {
-
-            var log = Substitute.For<ILogger>();
-            sepcond.WarningEvent += log.SepConditionOccured;
-
-            _atms.DataReady += Raise.EventWith(_argsToSend);
-
-            log.Received(1).SepConditionOccured(Arg.Any<object>(), Arg.Any<SepCondEventArgs>());
-        }*/
     }
 }
