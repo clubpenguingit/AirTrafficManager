@@ -6,7 +6,7 @@ using TransponderReceiver;
 
 namespace AirTrafficManager
 {
-    public class TransponderReceiverClient 
+    public class TransponderReceiverClient  : ITransponderReceiverClient
     {
         //Event AirTrafficManagementSystem will subscribe to
         public event EventHandler<DataEventArgs> DataReceivedEvent;
