@@ -18,12 +18,12 @@ namespace AirTrafficManager
         private MonitoredAirspace _monitoredAirspace;
         private ITransponderReceiverClient _transPondRecClient;
         private List<Track> _airCraftsInAirspaceList;
-        private TrackCalculator _trackCalculator;
+        private ITrackCalculator _trackCalculator;
 
         public event EventHandler<ATMSEventArgs> DataReady;
 
         public AirTrafficManagementSystem(MonitoredAirspace monair,  ITransponderReceiverClient transclient,
-                                            TrackCalculator calc)
+                                            ITrackCalculator calc)
         {
             this._monitoredAirspace = monair;
             this._transPondRecClient = transclient;
@@ -36,7 +36,6 @@ namespace AirTrafficManager
         //When ReceiverClient events
         private void OnReceiverClientEvent(object sender, DataEventArgs e)
         {
-
             foreach (var track in e.Tracks)
             {
                 // Look for track in list of tracks in airspace
