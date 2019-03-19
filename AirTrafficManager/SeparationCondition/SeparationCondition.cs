@@ -50,13 +50,13 @@ namespace AirTrafficManager
                 {
                     if (t != track)
                     {
-                        if (CheckIfInList(t, track) == false)
+                        if (CheckIfInList(track, t) == false)
                         {
-                            CheckForCondition(t, track);
+                            CheckForCondition(track, t);
                         }
-                        else if (CheckIfInList(t,track))
+                        else if (CheckIfInList(track,t))
                         {
-                            RemoveIfNoLongerCondition(t, track);
+                            RemoveIfNoLongerCondition(track, t);
                         }
                     }
                 }
@@ -139,13 +139,17 @@ namespace AirTrafficManager
         // Checks if two tracks are in the list of separation conditions in both ways
         private bool CheckIfInList(Track a, Track b)
         {
+
+
             var tempocc = new Occurence();
             tempocc.Tag1 = a.Tag;
             tempocc.Tag2 = b.Tag;
             bool doesItExist = false;
             foreach (var occ in _listOfConditionTracks)
             {
-                if (occ.Equals(tempocc))
+                if (occ.Tag1 == a.Tag && occ.Tag2 == b.Tag
+                                      ||
+                    occ.Tag2 == a.Tag && occ.Tag1 == b.Tag) 
                 {
                     doesItExist = true;
                 }
