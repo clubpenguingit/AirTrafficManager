@@ -119,8 +119,8 @@ namespace AirTrafficManager
             var XT1 = track1.XCoordinate;
             var YT2 = track2.YCoordinate;
             var YT1 = track1.YCoordinate;
-            return Math.Sqrt((Math.Pow(Math.Abs((XT2 - XT1)), 2)) + 
-                             (Math.Pow(Math.Abs((YT2 - YT1)), 2)));
+            return Math.Sqrt((Math.Pow((XT2 - XT1), 2)) + 
+                             (Math.Pow((YT2 - YT1), 2)));
         }
 
 
