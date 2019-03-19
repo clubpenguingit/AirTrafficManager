@@ -12,18 +12,21 @@ namespace AirTrafficManager
         public List<Track> Tracks { get; set; }
     }
 
-    public class AirTrafficManagementSystem
+    public class AirTrafficManagementSystem : IAirTrafficManagementSystem
     {
 
         private MonitoredAirspace _monitoredAirspace;
         private ITransponderReceiverClient _transPondRecClient;
         private List<Track> _airCraftsInAirspaceList;
-        private TrackCalculator _trackCalculator;
+        private ITrackCalculator _trackCalculator;
+        private MonitoredAirspace monitoredAirspace;
+        private TransponderReceiverClient client;
+        private TrackCalculator trackCalculator;
 
         public event EventHandler<ATMSEventArgs> DataReady;
 
         public AirTrafficManagementSystem(MonitoredAirspace monair,  ITransponderReceiverClient transclient,
-                                            TrackCalculator calc)
+                                            ITrackCalculator calc)
         {
             this._monitoredAirspace = monair;
             this._transPondRecClient = transclient;
@@ -31,12 +34,19 @@ namespace AirTrafficManager
             _transPondRecClient.DataReceivedEvent += OnReceiverClientEvent;
             _airCraftsInAirspaceList = new List<Track>();
         }
-        
+
+        //public AirTrafficManagementSystem(MonitoredAirspace monitoredAirspace, TransponderReceiverClient client, TrackCalculator trackCalculator)
+        //{
+        //    this.monitoredAirspace = monitoredAirspace;
+        //    this.client = client;
+        //    this.trackCalculator = trackCalculator;
+            
+        //}
+
 
         //When ReceiverClient events
         private void OnReceiverClientEvent(object sender, DataEventArgs e)
         {
-
             foreach (var track in e.Tracks)
             {
                 // Look for track in list of tracks in airspace
