@@ -79,14 +79,14 @@ namespace ATMSUnitTests
         }
 
         [Test]
-        public void ReceivedEvent()
+        public void SepCondEvent_ReceivesOneEvent_Only1EventSent()
         {
             _atms.DataReady += Raise.EventWith(_argsToSend);
             _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
         }
 
         [Test]
-        public void ConditionGone()
+        public void SepCondEvent_Receives2EventsAfter1stPlanesMovesOutOfSepCond_Only1EventSent()
         {
             //First set in setup
             _atms.DataReady += Raise.EventWith(_argsToSend);
@@ -106,16 +106,5 @@ namespace ATMSUnitTests
             _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
         }
 
-        /*[Test]
-        public void Reeee()
-        {
-
-            var log = Substitute.For<ILogger>();
-            sepcond.WarningEvent += log.SepConditionOccured;
-
-            _atms.DataReady += Raise.EventWith(_argsToSend);
-
-            log.Received(1).SepConditionOccured(Arg.Any<object>(), Arg.Any<SepCondEventArgs>());
-        }*/
     }
 }
