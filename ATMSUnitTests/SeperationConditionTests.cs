@@ -79,14 +79,14 @@ namespace ATMSUnitTests
         }
 
         [Test]
-        public void ReceivedEvent()
+        public void SepCondEvent_ReceivesOneEvent_Only1EventSent()
         {
             _atms.DataReady += Raise.EventWith(_argsToSend);
             _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
         }
 
         [Test]
-        public void ConditionGone()
+        public void SepCondEvent_Receives2EventsAfter1stPlanesMovesOutOfSepCond_Only1EventSent()
         {
             //First set in setup
             _atms.DataReady += Raise.EventWith(_argsToSend);
