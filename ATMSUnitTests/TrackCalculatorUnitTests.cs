@@ -22,8 +22,11 @@ namespace ATMSUnitTests
         }
 
         [TestCase(1, 2, 1, 2, 45)]
-        [TestCase(0, 1, 0, 0, 0)]
+        [TestCase(0, 1, 0, 0, 90)]
         [TestCase(-1, 1, -1, 1, 45)]
+        [TestCase(0,-1,0,0, 270)]
+        [TestCase(0,0,0,-1,180)]
+        [TestCase(0,0,0,1,0)]
 
         public void CalculateCourseTest(int x1, int x2, int y1, int y2, double result)
         {
