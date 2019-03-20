@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using AirTrafficManager;
-using AirTrafficManager.Log;
 using AirTrafficManager.LoggingClasses;
 using NSubstitute;
 using TransponderReceiver;
@@ -92,7 +91,6 @@ namespace ATMSUnitTests
 
             _atms.DataReady += Raise.EventWith(_argsToSend);
             _inputoutput.Received(1).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
-            Assert.That(_rendEventArgs.listOfCurrentConditions[0].Track2, Is.EqualTo(correctRendEventArgs.listOfCurrentConditions[0].Track2));
         }
 
 
@@ -171,7 +169,7 @@ namespace ATMSUnitTests
 
 
 
-        /* TEST FOR HØJDE EDGE CASES*/
+/* TEST FOR HØJDE EDGE CASES*/
         [TestCase("123456", "654321", 45000, 45000, 5000, 5300, 150, 150, 1)]
         [TestCase("123456", "654321", 45000, 45000, 5000, 5299, 150, 150, 1)]
         [TestCase("123456", "654321", 45000, 45000, 5000, 5301, 150, 150, 0)]
@@ -206,6 +204,80 @@ namespace ATMSUnitTests
 
             _atms.DataReady += Raise.EventWith(_argsToSend);
             _inputoutput.Received(result).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
+        }
+
+/* Test at der KUN bliver sendt 1 event når der bliver modtaget fem events med samme tags der konflikter*/
+        [TestCase("123456", "654321", 45000, 45000, 5000, 5299, 150, 150, 1)]
+        public void SepCond_ATMSRaisesSeveralEventsWithSameTags_SepcondRaises1Event
+        (String tag1, string tag2, int xcoord, int ycoord, int alt1, int alt2, int vel, int compc, int resultat)
+        {
+            Track track1 = new Track(tag1, xcoord, ycoord, alt1, DateTime.Now, vel, compc);
+            Track track2 = new Track(tag2, xcoord, ycoord, alt2, DateTime.Now, vel, compc);
+
+            // Add to list and prepare ATMS event
+            _tracklist = new List<Track>();
+            _tracklist.Add(track1);
+            _tracklist.Add(track2);
+            _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+
+
+            _inputoutput.Received(resultat).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
+        }
+
+        [TestCase("123456", "654321", 45000, 45000, 5000, 5200, 150, 150, 3)]
+        public void SepCondEvent_TwoPlanesAlreadySentThirdAddedThatConflictsWithBoth_3EventsSentInTotal
+        (String tag1, string tag2, int xcoord, int ycoord, int alt1, int alt2, int vel, int compc, int resultat)
+        {
+            Track track1 = new Track(tag1, xcoord, ycoord, alt1, DateTime.Now, vel, compc);
+            Track track2 = new Track(tag2, xcoord, ycoord, alt2, DateTime.Now, vel, compc);
+
+            // Add to list and prepare first ATMS event
+            _tracklist = new List<Track>();
+            _tracklist.Add(track1);
+            _tracklist.Add(track2);
+            _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+
+            // Adds new track to the ATMS event
+            Track conflictTrack = new Track("987654", xcoord, ycoord, 5100, DateTime.Now, vel, compc);
+            _tracklist.Add(conflictTrack);
+            _argsToSend = new ATMSEventArgs {Tracks = _tracklist};
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+
+            _inputoutput.Received(resultat).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
+        }
+
+        [Test]
+        public void SepCondToRendEvent_Receives1Event_Sends1Event()
+        {
+            Track track1 = new Track("123456", 50000, 50000, 10000, DateTime.Now, 150, 90);
+            Track track2 = new Track("654321", 49000, 50000, 10000, DateTime.Now, 150, 90);
+
+            _tracklist = new List<Track>();
+            _tracklist.Add(track1);
+            _tracklist.Add(track2);
+            _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
+
+            correctRendEventArgs = new RendEventArgs();
+            var sepcondlistforrenderer = new List<SepCondEventArgs>();
+            var newsepcond = new SepCondEventArgs();
+            newsepcond.Track1 = track1;
+            newsepcond.Track2 = track2;
+            newsepcond.TimeOfOccurrence = DateTime.Now;
+
+            sepcondlistforrenderer.Add(newsepcond);
+            correctRendEventArgs.listOfCurrentConditions = sepcondlistforrenderer;
+            correctRendEventArgs.TimeOfEvent = DateTime.Now;
+
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+
+            Assert.That(_rendEventArgs.listOfCurrentConditions[0].Track2, 
+                Is.EqualTo(correctRendEventArgs.listOfCurrentConditions[0].Track2));
         }
     }
 }

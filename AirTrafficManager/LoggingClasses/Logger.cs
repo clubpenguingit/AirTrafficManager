@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AirTrafficManager.LoggingClasses;
 
-namespace AirTrafficManager.Log
+namespace AirTrafficManager
 {
     public abstract class Logger : ILogger
     {
