@@ -24,7 +24,7 @@ namespace AirTrafficManager
             var sepcond = new SeparationCondition(atms);
             IRenderer rend = new Renderer(new Writer(),sepcond , 
                 atms);
-            var logger = new NormalLogger("loger_file.txt",sepcond, new FileLogger());
+            var logger = new NormalLogger("logger_file.txt",sepcond, new FileLogger());
 
             while (true)
                 System.Threading.Thread.Sleep(1000);

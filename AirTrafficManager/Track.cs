@@ -66,6 +66,7 @@ namespace AirTrafficManager
             {
                 if (value > 359 || value < 0)
                 {
+
                     throw new ArgumentOutOfRangeException("Course was not within range.");
                 }
                 else
