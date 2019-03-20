@@ -19,12 +19,6 @@
 	<ClassMask>*</ClassMask>
 	<FunctionMask>*</FunctionMask>
       </FilterEntry>
-
-      <FilterEntry>
-	<ModuleMask>AirTrafficManager</ModuleMask>
-	<ClassMask>FileLogger</ClassMask>
-        <FunctionMask>*</FunctionMask>
-      </FilterEntry>
     </ExcludeFilters>
   </Filters>
   <!-- Attribute filters. It's possible to use asterisks as wildcard symbols.
