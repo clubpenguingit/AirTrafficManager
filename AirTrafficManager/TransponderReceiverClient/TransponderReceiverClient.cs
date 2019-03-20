@@ -57,7 +57,7 @@ namespace AirTrafficManager
                 tracks.Add(t); 
             }
             
-            DataReceivedEvent(this, new DataEventArgs(tracks));
+            DataReceivedEvent?.Invoke(this, new DataEventArgs(tracks));
         }
     }
 }

@@ -77,6 +77,7 @@
     <Compile Include="SeparationCondition\RendEventArgs.cs" />
     <Compile Include="SeparationCondition\SepCondEventArgs.cs" />
     <Compile Include="TrackCalculator\ITrackCalculator.cs" />
+    <Compile Include="TransponderReceiverClient\DataEventArgs.cs" />
     <Compile Include="TransponderReceiverClient\ITransponderReceiverClient.cs" />
     <Compile Include="LoggingClasses\NormalLogger.cs" />
     <Compile Include="MonitoredAirspace.cs" />

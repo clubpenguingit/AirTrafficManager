@@ -19,9 +19,6 @@ namespace AirTrafficManager
         private ITransponderReceiverClient _transPondRecClient;
         private List<Track> _airCraftsInAirspaceList;
         private ITrackCalculator _trackCalculator;
-        private MonitoredAirspace monitoredAirspace;
-        private TransponderReceiverClient client;
-        private TrackCalculator trackCalculator;
 
         public event EventHandler<ATMSEventArgs> DataReady;
 
@@ -84,12 +81,15 @@ namespace AirTrafficManager
                 }
             }
 
-            // Pass on Tracks in monitored airspace. 
-            var args = new ATMSEventArgs();
-            args.Tracks = _airCraftsInAirspaceList;
+            // Pass on Tracks in monitored airspace if not empty
+            if (_airCraftsInAirspaceList.Count != 0)
+            {
+                var args = new ATMSEventArgs();
+                args.Tracks = _airCraftsInAirspaceList;
 
-            // Raise event if somebody has "subscribed" to it
-            DataReady?.Invoke(this, args);
+                // Raise event if somebody has "subscribed" to it 
+                DataReady?.Invoke(this, args);
+            }
         }
 
         // List.Find helper
