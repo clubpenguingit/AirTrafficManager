@@ -48,7 +48,7 @@ namespace AirTrafficManager
                 // Compare with all other tracks
                 foreach (var t in e.Tracks)
                 {
-                    if (t != track)
+                    if (t.Tag != track.Tag)
                     {
                         if (CheckIfInList(track, t) == false)
                         {
@@ -139,21 +139,18 @@ namespace AirTrafficManager
         // Checks if two tracks are in the list of separation conditions in both ways
         private bool CheckIfInList(Track a, Track b)
         {
-
-
             var tempocc = new Occurence();
             tempocc.Tag1 = a.Tag;
             tempocc.Tag2 = b.Tag;
             bool doesItExist = false;
+
             foreach (var occ in _listOfConditionTracks)
             {
-                if (occ.Tag1 == a.Tag && occ.Tag2 == b.Tag
-                                      ||
-                    occ.Tag2 == a.Tag && occ.Tag1 == b.Tag) 
-                {
+                if (occ.Tag1 == a.Tag && occ.Tag2 == b.Tag)
                     doesItExist = true;
-                }
 
+                if (occ.Tag2 == a.Tag && occ.Tag1 == b.Tag)
+                    doesItExist = true;
             }
             
             return doesItExist;

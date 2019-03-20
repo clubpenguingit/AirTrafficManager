@@ -35,15 +35,6 @@ namespace AirTrafficManager
             _airCraftsInAirspaceList = new List<Track>();
         }
 
-        //public AirTrafficManagementSystem(MonitoredAirspace monitoredAirspace, TransponderReceiverClient client, TrackCalculator trackCalculator)
-        //{
-        //    this.monitoredAirspace = monitoredAirspace;
-        //    this.client = client;
-        //    this.trackCalculator = trackCalculator;
-            
-        //}
-
-
         //When ReceiverClient events
         private void OnReceiverClientEvent(object sender, DataEventArgs e)
         {
