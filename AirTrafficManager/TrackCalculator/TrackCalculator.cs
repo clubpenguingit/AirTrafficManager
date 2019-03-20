@@ -16,7 +16,7 @@ namespace AirTrafficManager
 
             var deltaTime = time2 - time1;
 
-            var velocity = deltaDistance / deltaTime;
+            var velocity = Math.Abs(deltaDistance / deltaTime);
 
             return velocity;
         }
