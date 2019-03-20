@@ -16,6 +16,9 @@
     <ExcludeFilters>
       <FilterEntry>
         <ModuleMask>nunit.framework</ModuleMask>
+	<ModuleMask>FileLogger.cs</ModuleMask>
+	<ModuleMask>Writer.cs</ModuleMask>
+	<ModuleMask>Program.cs</ModuleMask>
         <ClassMask>*</ClassMask>
         <FunctionMask>*</FunctionMask>
       </FilterEntry>
