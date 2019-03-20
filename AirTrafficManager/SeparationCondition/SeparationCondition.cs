@@ -48,15 +48,15 @@ namespace AirTrafficManager
                 // Compare with all other tracks
                 foreach (var t in e.Tracks)
                 {
-                    if (t != track)
+                    if (t.Tag != track.Tag)
                     {
-                        if (CheckIfInList(t, track) == false)
+                        if (CheckIfInList(track, t) == false)
                         {
-                            CheckForCondition(t, track);
+                            CheckForCondition(track, t);
                         }
-                        else if (CheckIfInList(t,track))
+                        else if (CheckIfInList(track,t))
                         {
-                            RemoveIfNoLongerCondition(t, track);
+                            RemoveIfNoLongerCondition(track, t);
                         }
                     }
                 }
@@ -93,7 +93,7 @@ namespace AirTrafficManager
         public void CheckForCondition(Track t1, Track t2)
         {
 
-            if ((t1.Altitude - t2.Altitude) <= 300 &&
+            if (Math.Abs((t1.Altitude - t2.Altitude)) <= 300 &&
                 (DistanceCalculator(t1, t2) <= 5000))
             {
 
@@ -143,13 +143,14 @@ namespace AirTrafficManager
             tempocc.Tag1 = a.Tag;
             tempocc.Tag2 = b.Tag;
             bool doesItExist = false;
+
             foreach (var occ in _listOfConditionTracks)
             {
-                if (occ.Equals(tempocc))
-                {
+                if (occ.Tag1 == a.Tag && occ.Tag2 == b.Tag)
                     doesItExist = true;
-                }
 
+                if (occ.Tag2 == a.Tag && occ.Tag1 == b.Tag)
+                    doesItExist = true;
             }
             
             return doesItExist;

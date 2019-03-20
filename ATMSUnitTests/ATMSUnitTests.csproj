@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirTrafficManagementSystemUnitTests.cs" />
     <Compile Include="RendererUnitTests.cs" />
     <Compile Include="MonitoredAirspaceUnitTests.cs" />
     <Compile Include="NormalLoggerUnitTest.cs" />
