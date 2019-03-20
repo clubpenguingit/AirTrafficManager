@@ -137,5 +137,35 @@ namespace ATMSUnitTests
             Assert.That(resultTrack.YCoordinate,    Is.EqualTo(correctTrack.YCoordinate));
         }
 
+        [Test]
+        public void REEEEEEE()
+        {
+            Track track = new Track("123456", 80000, 80000, 15000, DateTime.MinValue, 0, 0);
+            List<Track> list = new List<Track>();
+            list.Add(track);
+            DataEventArgs toReceivEventArgs = new DataEventArgs(list);
+
+            ATMSEventArgs argsReceived;
+            uut.DataReady += (sender, args) =>
+            {
+                argsReceived = args;
+
+            };
+
+            //Act
+            stubTransRecClient.DataReceivedEvent += Raise.EventWith(toReceivEventArgs);
+            list.RemoveAt(0);
+
+            list.Add(new Track("123456", 80200, 80200, 15001, DateTime.Now, 0, 0));
+            toReceivEventArgs.Tracks = list;
+            stubTransRecClient.DataReceivedEvent += Raise.EventWith(toReceivEventArgs);
+            list.RemoveAt(0);
+            list.Add(new Track("123456", 80900, 80900, 15002, DateTime.MaxValue, 0, 0));
+            toReceivEventArgs.Tracks = list;
+            stubTransRecClient.DataReceivedEvent += Raise.EventWith(toReceivEventArgs);
+
+           
+        }
+
     }
 }

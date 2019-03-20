@@ -12,13 +12,16 @@ namespace ATMSUnitTests
     [TestFixture]
     public class TrackCalculatorUnitTests
     {
-        private TrackCalculator uut;
-
-        [Test]
-        public void CalculateVelocity_OneMeterInOneSecond_Returns_OneMeterPerSecond()
+        [TestCase(0, 1, 0, 0, 0, 0, 0, 1, 1)]
+        [TestCase(0, 2, 0, 0, 0, 0, 0, 1, 2)]
+        [TestCase(0, 2, 0, 0, 0, 0, 0, 2, 1)]
+        [TestCase(0, 0, 0, 1, 0, 0, 0, 1, 1)]
+        [TestCase(0, 0, 0, 0, 0, 1, 0, 1, 1)]
+        [TestCase(0, 0, 0, 1, 0, 0, 1, 2, 1)]
+        public void CalculateVelocityTest(int x1, int x2, int y1, int y2, int z1, int z2, double time1, double time2, double result)
         {
             TrackCalculator tc = new TrackCalculator();
-            Assert.That(tc.CalculateVelocity(0, 1, 0, 0, 0, 0, 0, 1), Is.EqualTo(1));
+            Assert.That(tc.CalculateVelocity(x1, x2, y1, y2, z1, z2, time1, time2), Is.EqualTo(result));
         }
 
         [TestCase(1, 2, 1, 2, 45)]
