@@ -190,5 +190,27 @@ namespace ATMSUnitTests
 
             _inputoutput.Received(resultat).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
         }
+
+        [TestCase("123456", "654321", 45000, 45000, 5000, 5299, 150, 150, 1)]
+        public void SepCond_ATMSRaisesSeveralEventsWithSameTags_SepcondRaises1Event(String tag1, string tag2, int xcoord, int ycoord,
+            int alt1, int alt2, int vel, int compc, int resultat)
+        {
+            Track track1 = new Track(tag1, xcoord, ycoord, alt1, DateTime.Now, vel, compc);
+            Track track2 = new Track(tag2, xcoord, ycoord, alt2, DateTime.Now, vel, compc);
+
+            // Add to list and prepare ATMS event
+            _tracklist = new List<Track>();
+            _tracklist.Add(track1);
+            _tracklist.Add(track2);
+            _argsToSend = new ATMSEventArgs { Tracks = _tracklist };
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+            _atms.DataReady += Raise.EventWith(_argsToSend);
+
+
+            _inputoutput.Received(resultat).Write(Arg.Any<SepCondEventArgs>(), Arg.Any<string>());
+        }
     }
 }
