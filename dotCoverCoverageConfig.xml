@@ -23,9 +23,7 @@
       <FilterEntry>
 	<ModuleMask>AirTrafficManager</ModuleMask>
 	<ClassMask>FileLogger</ClassMask>
-	<ClassMask>Writer</ClassMask>
-	<ClassMask>Program</ClassMask>
-	<FunctionMask>*</FunctionMask>
+        <FunctionMask>*</FunctionMask>
       </FilterEntry>
     </ExcludeFilters>
   </Filters>
