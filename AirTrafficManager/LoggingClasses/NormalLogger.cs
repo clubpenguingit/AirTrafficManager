@@ -6,7 +6,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirTrafficManager.Log
+namespace AirTrafficManager
 {
     public class NormalLogger : Logger
     {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AirTrafficManager;
-using AirTrafficManager.Log;
 using NSubstitute;
 using NUnit.Framework;
 

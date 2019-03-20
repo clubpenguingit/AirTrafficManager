@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AirTrafficManager.Log;
 using NUnit.Framework.Internal.Execution;
 using TransponderReceiver;
 
