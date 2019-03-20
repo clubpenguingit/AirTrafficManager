@@ -55,7 +55,7 @@ namespace ATMSUnitTests
             mockWriter.Received(1).Write($"Tag: {trackInput[0].Tag}\n" +
                                          $"Coordinates: ({trackInput[0].XCoordinate} , {trackInput[0].YCoordinate}) meters\n" +
                                          $"Altitude: {trackInput[0].Altitude} meters\n" +
-                                         $"Velocity: {trackInput[0].Velocity} meters\n" +
+                                         $"Velocity: {trackInput[0].Velocity} m/s\n" +
                                          $"Compass course: {trackInput[0].CompassCourse}\n");
         }
 
@@ -138,7 +138,7 @@ namespace ATMSUnitTests
             mockWriter.Received(1).Write($"Tag: {trackInput[0].Tag}\n" +
                                          $"Coordinates: ({trackInput[0].XCoordinate} , {trackInput[0].YCoordinate}) meters\n" +
                                          $"Altitude: {trackInput[0].Altitude} meters\n" +
-                                         $"Velocity: {trackInput[0].Velocity} meters\n" +
+                                         $"Velocity: {trackInput[0].Velocity} m/s\n" +
                                          $"Compass course: {trackInput[0].CompassCourse}\n");
             mockWriter.Received(1).ClearConsole();
         }

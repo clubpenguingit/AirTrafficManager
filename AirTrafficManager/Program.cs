@@ -13,8 +13,8 @@ namespace AirTrafficManager
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Du kom til at køre Main");
+           
+            Console.WriteLine("Waiting for aircrafts to enter airspace");
             var receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
 
             TransponderReceiverClient client = new TransponderReceiverClient(receiver, new TrackCalculator());

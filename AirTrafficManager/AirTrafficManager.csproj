@@ -74,6 +74,7 @@
     <Compile Include="Renderer\IRenderer.cs" />
     <Compile Include="SeparationCondition\ISeparationCondition.cs" />
     <Compile Include="TrackCalculator\ITrackCalculator.cs" />
+    <Compile Include="TransponderReceiverClient\DataEventArgs.cs" />
     <Compile Include="TransponderReceiverClient\ITransponderReceiverClient.cs" />
     <Compile Include="LoggingClasses\Logger.cs" />
     <Compile Include="LoggingClasses\NormalLogger.cs" />

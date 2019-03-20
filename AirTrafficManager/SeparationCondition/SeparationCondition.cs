@@ -48,7 +48,7 @@ namespace AirTrafficManager
                 // Compare with all other tracks
                 foreach (var t in e.Tracks)
                 {
-                    if (t.Tag != track.Tag)
+                    if (track != t)
                     {
                         if (CheckIfInList(track, t) == false)
                         {
@@ -63,11 +63,14 @@ namespace AirTrafficManager
             }
 
             // Creation of args for renderer event
-            var args = new RendEventArgs();
-            args.listOfCurrentConditions = _SepCondEventArgsList;
-            args.TimeOfEvent = DateTime.Now;
-            
-            RendererWarning(this, args);
+            if(_listOfConditionTracks.Count != 0)
+            {
+                var args = new RendEventArgs();
+                args.listOfCurrentConditions = _SepCondEventArgsList;
+                args.TimeOfEvent = DateTime.Now;
+
+                RendererWarning?.Invoke(this, args);
+            }
         }
 
 
@@ -107,7 +110,7 @@ namespace AirTrafficManager
                 _SepCondEventArgsList.Add(args);
                
                 // Raise event for warnings
-                WarningEvent(this, args);
+                WarningEvent?.Invoke(this, args);
             }
         }
 

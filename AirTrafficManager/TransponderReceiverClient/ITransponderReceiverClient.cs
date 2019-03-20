@@ -5,16 +5,6 @@ using System.Runtime.Remoting.Services;
 
 namespace AirTrafficManager
 {
-    public class DataEventArgs : EventArgs
-    {
-        public List<Track> Tracks { get; set; }
-
-        public DataEventArgs(List<Track> tracks)
-        {
-            Tracks = tracks;
-        }
-    }
-
     public interface ITransponderReceiverClient
     {
         //Event AirTrafficManagementSystem will subscribe to

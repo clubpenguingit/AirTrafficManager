@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace AirTrafficManager
 {
@@ -29,7 +30,7 @@ namespace AirTrafficManager
                 _writer.Write($"Tag: {track.Tag}\n" +
                               $"Coordinates: ({track.XCoordinate} , {track.YCoordinate}) meters\n" +
                               $"Altitude: {track.Altitude} meters\n" +
-                              $"Velocity: {track.Velocity} meters\n" +
+                              $"Velocity: {track.Velocity} m/s\n" +
                               $"Compass course: {track.CompassCourse}\n");
             } 
         }

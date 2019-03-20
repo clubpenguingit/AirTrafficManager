@@ -75,6 +75,7 @@ namespace ATMSUnitTests
 
             // Catch arguments passed on
             ATMSEventArgs argsPassedOn = new ATMSEventArgs();
+            argsPassedOn.Tracks = new List<Track>();
             uut.DataReady += (sender, args) =>
             {
                 argsPassedOn = args;
@@ -138,33 +139,23 @@ namespace ATMSUnitTests
         }
 
         [Test]
-        public void REEEEEEE()
+        public void OnReceiverClientEvent_ReceiverClientSendsNoTracks_PassesNoneOn()
         {
-            Track track = new Track("123456", 80000, 80000, 15000, DateTime.MinValue, 0, 0);
-            List<Track> list = new List<Track>();
-            list.Add(track);
-            DataEventArgs toReceivEventArgs = new DataEventArgs(list);
+            // Arrange - Empty receiverclientarguments
+            var emptyList = new List<Track>();
+            DataEventArgs emptyArgs = new DataEventArgs(emptyList);
 
-            ATMSEventArgs argsReceived;
-            uut.DataReady += (sender, args) =>
-            {
-                argsReceived = args;
+            // Arrange - Catch the processed 
+            ATMSEventArgs receivedArgs = new ATMSEventArgs();
+            receivedArgs.Tracks = new List<Track>();
+            uut.DataReady += (sender, args) => { receivedArgs = args; };
 
-            };
+            // Act - Raise event
+            stubTransRecClient.DataReceivedEvent += Raise.EventWith(emptyArgs);
 
-            //Act
-            stubTransRecClient.DataReceivedEvent += Raise.EventWith(toReceivEventArgs);
-            list.RemoveAt(0);
+            // Assert that no tracks were passed on.
+            Assert.That(receivedArgs.Tracks.Count, Is.EqualTo(0));
 
-            list.Add(new Track("123456", 80200, 80200, 15001, DateTime.Now, 0, 0));
-            toReceivEventArgs.Tracks = list;
-            stubTransRecClient.DataReceivedEvent += Raise.EventWith(toReceivEventArgs);
-            list.RemoveAt(0);
-            list.Add(new Track("123456", 80900, 80900, 15002, DateTime.MaxValue, 0, 0));
-            toReceivEventArgs.Tracks = list;
-            stubTransRecClient.DataReceivedEvent += Raise.EventWith(toReceivEventArgs);
-
-           
         }
 
     }
