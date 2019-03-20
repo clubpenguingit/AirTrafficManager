@@ -48,7 +48,7 @@ namespace ATMSUnitTests
             _rendEventArgs = new RendEventArgs();
             var sepcondlist = new List<SepCondEventArgs>();
             sepcondlist.Add(_sepCondEventArgs);
-            _rendEventArgs.listOfCurrentConditions = sepcondlist;
+            _rendEventArgs.ListOfCurrentConditions = sepcondlist;
             _rendEventArgs.TimeOfEvent = DateTime.Now;
             
 
@@ -86,7 +86,7 @@ namespace ATMSUnitTests
             newsepcond.TimeOfOccurrence = DateTime.Now;
   
             sepcondlistforrenderer.Add(newsepcond);
-            correctRendEventArgs.listOfCurrentConditions = sepcondlistforrenderer;
+            correctRendEventArgs.ListOfCurrentConditions = sepcondlistforrenderer;
             correctRendEventArgs.TimeOfEvent = DateTime.Now;
 
             _atms.DataReady += Raise.EventWith(_argsToSend);
@@ -271,13 +271,13 @@ namespace ATMSUnitTests
             newsepcond.TimeOfOccurrence = DateTime.Now;
 
             sepcondlistforrenderer.Add(newsepcond);
-            correctRendEventArgs.listOfCurrentConditions = sepcondlistforrenderer;
+            correctRendEventArgs.ListOfCurrentConditions = sepcondlistforrenderer;
             correctRendEventArgs.TimeOfEvent = DateTime.Now;
 
             _atms.DataReady += Raise.EventWith(_argsToSend);
 
-            Assert.That(_rendEventArgs.listOfCurrentConditions[0].Track2, 
-                Is.EqualTo(correctRendEventArgs.listOfCurrentConditions[0].Track2));
+            Assert.That(_rendEventArgs.ListOfCurrentConditions[0].Track2, 
+                Is.EqualTo(correctRendEventArgs.ListOfCurrentConditions[0].Track2));
         }
     }
 }

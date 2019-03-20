@@ -5,18 +5,30 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using AirTrafficManager.LoggingClasses;
 
 namespace AirTrafficManager
 {
-    public class NormalLogger : Logger
+    public class NormalLogger : ILogger
     {
+        protected ISeparationCondition SepCond;
+        protected string FileName;
         private IInputOutput inputoutputtype;
-        public NormalLogger(string name, ISeparationCondition sepCond, IInputOutput inputOutput) : base(name, sepCond)
+
+
+        public NormalLogger(string name, ISeparationCondition sepCond, IInputOutput inputOutput)
         {
-            inputoutputtype = inputOutput;
+            FileName = name;
+
+            this.SepCond = sepCond;
+
+            this.inputoutputtype = inputOutput;
+
+
+            this.SepCond.WarningEvent += SepConditionOccured;
         }
 
-        public override void SepConditionOccured(object sender, SepCondEventArgs e)
+        public void SepConditionOccured(object sender, SepCondEventArgs e)
         {
             inputoutputtype.Write(e, FileName);
         }

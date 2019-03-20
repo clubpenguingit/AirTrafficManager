@@ -57,7 +57,7 @@ namespace AirTrafficManager
 
         private void OnSepCondition(object sender, RendEventArgs e)
         {
-            foreach (var condition in e.listOfCurrentConditions)
+            foreach (var condition in e.ListOfCurrentConditions)
             {
                 RenderCondition(condition.Track1, condition.Track2, e.TimeOfEvent);
             }

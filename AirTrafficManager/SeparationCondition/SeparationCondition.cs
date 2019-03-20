@@ -3,23 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AirTrafficManagers;
 using NUnit.Framework;
 
 namespace AirTrafficManager
 {
-    public class Occurence
-    {
-        public string Tag1 { get; set; }
-        public string Tag2 { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            var o = obj as Occurence;
-            return ((this.Tag1 == o.Tag1) && (this.Tag2 == o.Tag2))
-                   || //OR
-                   ((this.Tag2 == o.Tag1) && (this.Tag1 == o.Tag2));
-        }
-    }
 
     public class SeparationCondition : ISeparationCondition
     {
@@ -64,7 +52,7 @@ namespace AirTrafficManager
 
             // Creation of args for renderer event
             var args = new RendEventArgs();
-            args.listOfCurrentConditions = _SepCondEventArgsList;
+            args.ListOfCurrentConditions = _SepCondEventArgsList;
             args.TimeOfEvent = DateTime.Now;
             
             RendererWarning(this, args);
