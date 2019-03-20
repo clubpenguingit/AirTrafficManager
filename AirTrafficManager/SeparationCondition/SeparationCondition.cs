@@ -93,7 +93,7 @@ namespace AirTrafficManager
         public void CheckForCondition(Track t1, Track t2)
         {
 
-            if ((t1.Altitude - t2.Altitude) <= 300 &&
+            if (Math.Abs((t1.Altitude - t2.Altitude)) <= 300 &&
                 (DistanceCalculator(t1, t2) <= 5000))
             {
 
@@ -119,8 +119,8 @@ namespace AirTrafficManager
             var XT1 = track1.XCoordinate;
             var YT2 = track2.YCoordinate;
             var YT1 = track1.YCoordinate;
-            return Math.Sqrt((Math.Pow((XT2 - XT1), 2)) + 
-                             (Math.Pow((YT2 - YT1), 2)));
+            return Math.Sqrt((Math.Pow(Math.Abs((XT2 - XT1)), 2)) + 
+                             (Math.Pow(Math.Abs((YT2 - YT1)), 2)));
         }
 
 
