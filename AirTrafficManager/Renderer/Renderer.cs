@@ -16,9 +16,8 @@ namespace AirTrafficManager
             _writer = writer;
            _condition = sepcond;
            _atms = atms;
-           //Subscribe to conditionevent. 
-           _condition.RendererWarning += OnSepCondition;
            _atms.DataReady += OnDataReadyInATMS;
+            _condition.RendererWarning += OnSepCondition;
         }
         public void RenderAirCrafts(List<Track> tracks, bool clear = true)
         {
@@ -48,7 +47,7 @@ namespace AirTrafficManager
 
             RenderAirCrafts(tracks, false);
 
-
+            
         }
 
         private void OnDataReadyInATMS(object sender, ATMSEventArgs e)
