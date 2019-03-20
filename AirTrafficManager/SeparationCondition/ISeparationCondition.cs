@@ -6,22 +6,6 @@ using System.Threading.Tasks;
 
 namespace AirTrafficManager
 {
-    #region WarningEvent arguments
-    public class SepCondEventArgs : EventArgs
-    {
-        public Track Track1 { get; set; }
-        public Track Track2 { get; set; }
-        public DateTime TimeOfOccurrence { get; set; }
-    }
-    #endregion
-
-    public class RendEventArgs : EventArgs
-    {
-        public List<SepCondEventArgs> listOfCurrentConditions;
-        public DateTime TimeOfEvent { get; set; }
-    }
-
-
     public interface ISeparationCondition
     {
         event EventHandler<SepCondEventArgs> WarningEvent;

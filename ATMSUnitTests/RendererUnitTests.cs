@@ -158,7 +158,7 @@ namespace ATMSUnitTests
             listOfEvents.Add(condEventArgs);
     
             args.TimeOfEvent = condEventArgs.TimeOfOccurrence;
-            args.listOfCurrentConditions = listOfEvents;
+            args.ListOfCurrentConditions = listOfEvents;
 
             // Act - Raise the event
             stubSepCond.RendererWarning += Raise.EventWith(this, args);
@@ -188,7 +188,7 @@ namespace ATMSUnitTests
             listOfEvents.Add(condEventArgs2);
 
             args.TimeOfEvent = DateTime.Now;
-            args.listOfCurrentConditions = listOfEvents;
+            args.ListOfCurrentConditions = listOfEvents;
 
             // Act - Raise the event
             stubSepCond.RendererWarning += Raise.EventWith(this, args);

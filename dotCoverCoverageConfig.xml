@@ -16,8 +16,8 @@
     <ExcludeFilters>
       <FilterEntry>
         <ModuleMask>nunit.framework</ModuleMask>
-        <ClassMask>*</ClassMask>
-        <FunctionMask>*</FunctionMask>
+	<ClassMask>*</ClassMask>
+	<FunctionMask>*</FunctionMask>
       </FilterEntry>
     </ExcludeFilters>
   </Filters>

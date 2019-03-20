@@ -73,10 +73,12 @@
     <Compile Include="LoggingClasses\ILogger.cs" />
     <Compile Include="Renderer\IRenderer.cs" />
     <Compile Include="SeparationCondition\ISeparationCondition.cs" />
+    <Compile Include="SeparationCondition\Occurence.cs" />
+    <Compile Include="SeparationCondition\RendEventArgs.cs" />
+    <Compile Include="SeparationCondition\SepCondEventArgs.cs" />
     <Compile Include="TrackCalculator\ITrackCalculator.cs" />
     <Compile Include="TransponderReceiverClient\DataEventArgs.cs" />
     <Compile Include="TransponderReceiverClient\ITransponderReceiverClient.cs" />
-    <Compile Include="LoggingClasses\Logger.cs" />
     <Compile Include="LoggingClasses\NormalLogger.cs" />
     <Compile Include="MonitoredAirspace.cs" />
     <Compile Include="Writer\IWriter.cs" />
