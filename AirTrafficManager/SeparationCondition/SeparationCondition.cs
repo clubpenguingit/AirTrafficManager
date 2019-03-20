@@ -54,7 +54,7 @@ namespace AirTrafficManager
             if(_listOfConditionTracks.Count != 0)
             {
                 var args = new RendEventArgs();
-                args.listOfCurrentConditions = _SepCondEventArgsList;
+                args.ListOfCurrentConditions = _SepCondEventArgsList;
                 args.TimeOfEvent = DateTime.Now;
 
                 RendererWarning?.Invoke(this, args);
