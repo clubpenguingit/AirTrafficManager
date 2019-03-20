@@ -16,10 +16,8 @@
     <ExcludeFilters>
       <FilterEntry>
         <ModuleMask>nunit.framework</ModuleMask>
-	</FilterEntry>
-
 	<FilterEntry>
-        <ClassMask>FileLogger*</ClassMask>
+	<ClassMask>FileLogger*</ClassMask>
 	</FilterEntry>
 
 	<FilterEntry>
@@ -30,8 +28,7 @@
 	<ClassMask>Writer*</ClassMask>
 	</FilterEntry>
 
-	<FilterEntry>
-        <FunctionMask>*</FunctionMask>
+	<FunctionMask>*</FunctionMask>
       </FilterEntry>
     </ExcludeFilters>
   </Filters>
