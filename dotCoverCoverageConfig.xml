@@ -17,15 +17,15 @@
       <FilterEntry>
         <ModuleMask>nunit.framework</ModuleMask>
 	<FilterEntry>
-	<ClassMask>FileLogger*</ClassMask>
+	<ClassMask>FileLogger</ClassMask>
 	</FilterEntry>
 
 	<FilterEntry>
-	<ClassMask>Program*</ClassMask>
+	<ClassMask>Program</ClassMask>
 	</FilterEntry>
 
 	<FilterEntry>
-	<ClassMask>Writer*</ClassMask>
+	<ClassMask>Writer</ClassMask>
 	</FilterEntry>
 
 	<FunctionMask>*</FunctionMask>
