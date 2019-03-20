@@ -16,18 +16,15 @@
     <ExcludeFilters>
       <FilterEntry>
         <ModuleMask>nunit.framework</ModuleMask>
-	<FilterEntry>
+	<ClassMask>*</ClassMask>
+	<FunctionMask>*</FunctionMask>
+      </FilterEntry>
+
+      <FilterEntry>
+	<ModuleMask>AirTrafficManager</ModuleMask>
 	<ClassMask>FileLogger</ClassMask>
-	</FilterEntry>
-
-	<FilterEntry>
-	<ClassMask>Program</ClassMask>
-	</FilterEntry>
-
-	<FilterEntry>
 	<ClassMask>Writer</ClassMask>
-	</FilterEntry>
-
+	<ClassMask>Program</ClassMask>
 	<FunctionMask>*</FunctionMask>
       </FilterEntry>
     </ExcludeFilters>
