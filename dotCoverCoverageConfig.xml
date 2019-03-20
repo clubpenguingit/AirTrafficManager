@@ -16,9 +16,21 @@
     <ExcludeFilters>
       <FilterEntry>
         <ModuleMask>nunit.framework</ModuleMask>
+	</FilterEntry>
+
+	<FilterEntry>
         <ClassMask>FileLogger*</ClassMask>
+	</FilterEntry>
+
+	<FilterEntry>
 	<ClassMask>Program*</ClassMask>
+	</FilterEntry>
+
+	<FilterEntry>
 	<ClassMask>Writer*</ClassMask>
+	</FilterEntry>
+
+	<FilterEntry>
         <FunctionMask>*</FunctionMask>
       </FilterEntry>
     </ExcludeFilters>
