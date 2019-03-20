@@ -13,7 +13,7 @@ namespace ATMSUnitTests
     public class TrackCalculatorUnitTests
     {
         [TestCase(1000, 4000, 1000, 5000, 5000, 5000, 0, 2, 2500)]
-        [TestCase(0, 2, 0, 0, 0, 0, 0, 1, 2)]
+        [TestCase(100, 400, 100, 500, 500, 500, 0, 2, 250)]
         [TestCase(0, 2, 0, 0, 0, 0, 0, 2, 1)]
         [TestCase(0, 0, 0, 1, 0, 0, 0, 1, 1)]
         [TestCase(0, 0, 0, 0, 0, 1, 0, 1, 1)]

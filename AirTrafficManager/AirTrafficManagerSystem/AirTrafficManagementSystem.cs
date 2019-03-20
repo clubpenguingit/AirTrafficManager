@@ -49,10 +49,14 @@ namespace AirTrafficManager
                     double trackSeconds = (track.Time.Minute * 60) + track.Time.Second;
                     double foundTrackSeconds = (foundTrack.Time.Minute * 60) + foundTrack.Time.Second;
 
+                    // Workaround
+                    TimeSpan differenceTime = track.Time.Subtract(foundTrack.Time);
+
+
                     var velocity = _trackCalculator.CalculateVelocity(foundTrack.XCoordinate, track.XCoordinate,
                         foundTrack.YCoordinate, track.YCoordinate,
                         foundTrack.Altitude, track.Altitude,
-                        foundTrackSeconds, trackSeconds );
+                        0, differenceTime.TotalSeconds);
 
                     var compassCourse = _trackCalculator.CalculateCourse(foundTrack.XCoordinate, track.XCoordinate,
                         foundTrack.YCoordinate, track.YCoordinate);

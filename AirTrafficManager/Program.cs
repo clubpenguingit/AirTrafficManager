@@ -12,6 +12,7 @@ namespace AirTrafficManager
     {
         static void Main(string[] args)
         {
+           
 
             Console.WriteLine("Du kom til at køre Main");
             var receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
